@@ -1,0 +1,80 @@
+.aside{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main aside{
+    background-color: #000000;
+    box-shadow: 5px 0px 15px 5px #000000;
+}
+.img{
+    height: 50%;
+}
+.main{
+    height: 740px;
+    display: flex;
+}
+.registration{
+    height: 740px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.h1{
+    font-size: 600%;
+    padding-bottom: 50px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input{
+    padding: 15px;
+    padding-left: 35px;
+    border-radius: 20px;
+    padding-right: 35px;
+    border: 1px solid black;
+    margin: 5px; 
+}
+
+.form a{
+    margin: 10px;
+    color: black;
+}
+.registration button{
+    margin: 10px;
+}
+.registration h2{
+    color: white;
+}
+.main h2{
+    color: black;
+}
+.section h2{
+    margin: 5px;
+}
+.registration section{
+background-color: black;
+color: white;
+box-shadow: 5px 0px 15px 5px #000000;
+}
+.registration a{
+    color: white;
+}
+.registration input{
+    background-color: black;
+    border: white 1px solid;
+    color: white;
+}
+.registration button{
+    background-color: white;
+    color:black
+}

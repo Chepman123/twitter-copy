@@ -1,0 +1,101 @@
+import { PoolClient } from "pg";
+import db from '../db'
+import functions from '../utils/Profile.Functions'
+import { Post } from "./MainSevice";
+interface profile{
+    description:string;
+    icon:string;
+    userAccount:boolean;
+    followersCount:number;
+    followingsCount:number;
+    isFollowed:boolean;
+    posts:Post[]
+}
+export default class ProfileService{
+    //#region getProfile
+    async getProfile(username:string,token:string):Promise<profile>
+    {
+     const client:PoolClient = await db.connect();
+     const sql:string = `SELECT description, avatar AS icon FROM users WHERE username = $1`;
+     const login:string = await functions.DecodeToken(token);
+
+     try{
+        const result:profile = (await client.query(sql,[username])).rows[0];
+        const loginPage:string = await functions.getLogin(client,username);
+        result.userAccount= loginPage==login;
+        result.followersCount=await functions.getCountFollows(client,username,true);
+        result.followingsCount = await functions.getCountFollows(client,username,false);
+        result.isFollowed=await functions.isFollowed(client,await functions.getUsername(client,login),username);
+        result.posts = await functions.getPosts(client,username);
+        return result;
+     }
+     catch(error){
+        console.error(error);
+        return {description:'',icon:'',userAccount:false,followersCount:0,followingsCount:0,isFollowed:false,posts:[]}
+     }
+     finally{
+        client.release();
+     }
+    }
+   //#endregion
+    //#region change profile
+    async changeProfile(login:string,description:string,icon:string){
+        const client:PoolClient = await db.connect();
+        const sql:string = ` UPDATE users
+  SET description = $2,
+      avatar = $3
+  WHERE username = $1`;
+        try{
+            await client.query(sql,[login,description,icon||null]);
+        }
+        catch(error){
+            console.error(error);
+        }
+        finally{
+            client.release();
+        }
+    }
+    //#endregion
+    //#region follows
+    async Follow(following:string,token:string){
+      const client:PoolClient = await db.connect();
+
+      try{
+      const follower = await functions.getUsername(client, await functions.DecodeToken(token));
+      
+      const following_id:string = await functions.getId(client,following);
+      const follower_id:string = await functions.getId(client,follower);
+
+      if(await functions.followingExists(client,follower_id,following_id)){
+      const sql:string=`DELETE FROM follows WHERE follower_id = $1 AND following_id = $2`;
+      client.query(sql,[follower_id,following_id]);
+      }
+     else{
+      const sql:string=`INSERT INTO follows(follower_id,following_id) VALUES($1,$2)`;
+      client.query(sql,[follower_id,following_id]);
+     }
+    }
+    catch(error){
+        console.error(error);
+    }
+    finally{
+        client.release();
+    }
+    }
+
+    async GetFollows(username:string,sql:string):Promise<{username:string}[]>{
+        const client:PoolClient = await db.connect();
+       const id:string = await functions.getId(client,username);
+       try{
+       return (await (client.query(sql,[id]))).rows;
+       }
+       catch(error){
+        return [];
+        console.error(error);
+       }
+       finally{
+         client.release();
+       } 
+    }
+    //#endregion
+}
