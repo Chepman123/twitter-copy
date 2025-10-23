@@ -1,5 +1,6 @@
 import { PoolClient, QueryResult } from "pg";
 import { Post } from "../Services/MainSevice";
+import Pfunctions from "./Post.Functions";
 import jwt from 'jsonwebtoken'
 export default class functions{
      static async isFollowed(client:PoolClient,follower:string,following:string):Promise<boolean>{
@@ -31,13 +32,31 @@ export default class functions{
         const sql:string = `SELECT * FROM follows WHERE follower_id=$1 AND following_id=$2`
         return (await client.query(sql,[follower_id,following_id])).rowCount!=0; 
     }
-    static async getPosts(client:PoolClient,username:string):Promise<Post[]>{
-          const sql:string = `SELECT p.id,p.content,u.username AS created_by,p.created_at FROM posts p
-      JOIN users u ON u.id = p.created_by
-      WHERE u.username = $1`;
-      const result:QueryResult = await client.query(sql,[username]);
+    static async getPosts(client:PoolClient,all:boolean,username:string):Promise<Post[]>{
+        let sql: string;
+let params: any[] = [];
+
+if (all) {
+  sql = `
+    SELECT p.id, p.content, u.username AS created_by, p.created_at
+    FROM posts p
+    JOIN users u ON u.id = p.created_by
+  `;
+} else {
+  sql = `
+    SELECT p.id, p.content, u.username AS created_by, p.created_at
+    FROM posts p
+    JOIN users u ON u.id = p.created_by
+    WHERE u.username = $1
+  `;
+  params = [username];
+}
+
+const result = await client.query(sql, params);
+
       for(let i=0;i<result.rowCount!;i++){
         result.rows[i].created_byUser = username==result.rows[i].created_by;
+        result.rows[i].likes = await Pfunctions.GetLikes(client,result.rows[i].id);
       }
       return result.rows;
     }

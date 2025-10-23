@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import PostComponent from '../../Post/PostComponent'
+import type{Comment} from '../../Comment/Comment'
 export interface Post{
     id:number,
     content:string,
     created_by:string,
     created_at:string,
-    created_byUser:boolean
+    created_byUser:boolean,
+    likes:string,
+    comments:Comment[]
 }
 interface Info{
     profile:string,users:{username:string}[],

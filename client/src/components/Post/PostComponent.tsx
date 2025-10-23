@@ -34,14 +34,31 @@ export default function PostComponent({data}:{data:Post}){
         setTime(time);
     },[])
     //#endregion
-     function DeletePost() {
+    //#region editing
+    function DeletePost() {
        api('DELETE',{id:data.id});  
     }
     async function ChangePost() {
       await api('PUT',{id:data.id,content:editValue});  
       setEditMode(false);
     }
-    return <>
+    //#endregion
+    //#region Like and comment
+    async function Like() {
+      try{
+    await fetch(`http://localhost:5000/post/${data.id}/like`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token:localStorage.getItem('token')})
+    });
+  }
+  catch(error){
+    console.error(error);
+  }
+   }
+   //#endregion
+
+    return <Link to={`/post/${data.id}`}>
        <p>{data.content}</p>
        {editMode&&
        <>
@@ -56,6 +73,8 @@ export default function PostComponent({data}:{data:Post}){
          <button onClick={DeletePost}>delete</button>
        </>
        }
+       <button onClick={Like}>Like</button>
+       <h4>Likes:{data.likes}</h4>
        <h4>{`Created at ${time}. ${date}`}</h4>
-    </>
+    </Link>
 }

@@ -3,12 +3,21 @@ import dotenv from 'dotenv';
 import { PoolClient, QueryResult } from "pg";
 import db from '../db'
 import functions from "../utils/Profile.Functions";
+export interface Comment{
+    id:string,
+    username:string,
+    content:string,
+    date:string,
+    createdByUser:boolean
+}
 export interface Post{
     id:number,
     content:string,
     created_by:string,
     created_at:string,
-    created_byUser:boolean
+    created_byUser:boolean,
+    likes:string,
+    comments:Comment[]
 }
 export interface Info{
     profile:string,users:{username:string}[],
@@ -31,7 +40,7 @@ export default class MainService{
 
           sql = `SELECT username FROM users WHERE login != $1`
           const usernames:{username:string}[]= (await client.query(sql,[login])).rows;
-          return {profile:username,users:usernames,posts:await functions.getPosts(client,username)};
+          return {profile:username,users:usernames,posts:await functions.getPosts(client,true,username)};
         }
         catch(error){
             console.error(error);

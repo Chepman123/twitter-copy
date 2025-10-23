@@ -26,7 +26,7 @@ export default class ProfileService{
         result.followersCount=await functions.getCountFollows(client,username,true);
         result.followingsCount = await functions.getCountFollows(client,username,false);
         result.isFollowed=await functions.isFollowed(client,await functions.getUsername(client,login),username);
-        result.posts = await functions.getPosts(client,username);
+        result.posts = await functions.getPosts(client,false,username);
         return result;
      }
      catch(error){

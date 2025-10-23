@@ -5,6 +5,7 @@ import helmet from "helmet";
 import MainPage from './Routes/MainPage';
 import Profile from './Routes/Profile';
 import Post from './Routes/Post';
+import PostPage from './Routes/PostPage';
 
 const app = express();
 app.use(helmet());
@@ -22,7 +23,7 @@ app.use(cors({
     }
   },
   methods: ['GET','POST','OPTIONS','DELETE','PUT'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization','token'],
   credentials: true
 }));
 
@@ -34,6 +35,7 @@ app.use('/', MainPage());
 app.use('/profile', Profile());
 
 app.use('/profile/post',Post());
+app.use('/post',PostPage());
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

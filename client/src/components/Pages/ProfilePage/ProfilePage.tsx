@@ -4,6 +4,7 @@ import userIcon from '../../../../public/userIcon.png'
 import type { Post } from "../Main/Main";
 import PostComponent from '../../Post/PostComponent';
 import PostCreateModal from "../../PostModal/PostCreateModal";
+import type { Comment } from "../../Comment/Comment";
 
 interface profile{
     description?:string,
