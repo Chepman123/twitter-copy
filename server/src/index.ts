@@ -6,6 +6,7 @@ import MainPage from './Routes/MainPage';
 import Profile from './Routes/Profile';
 import Post from './Routes/Post';
 import PostPage from './Routes/PostPage';
+import errorHandle from './utils/errorHandle';
 
 const app = express();
 app.use(helmet());
@@ -37,5 +38,6 @@ app.use('/profile', Profile());
 app.use('/profile/post',Post());
 app.use('/post',PostPage());
 
+app.use(errorHandle);
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

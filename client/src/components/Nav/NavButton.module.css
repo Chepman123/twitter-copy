@@ -1,0 +1,24 @@
+.navButton{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-align: start;
+    align-self: flex-start;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black;
+    font-size: 200%;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all ease-in-out 0.3s;
+    margin-left: 20px;
+}
+.navButton:hover{
+    cursor: pointer;
+    background-color: rgb(211, 211, 211);
+}
+.svg{
+    scale: 1.5;
+    margin: 10px;
+}

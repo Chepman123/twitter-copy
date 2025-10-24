@@ -1,4 +1,4 @@
-import { Router,Request,Response } from "express";
+import { Router,Request,Response, NextFunction  } from "express";
 import PostService from "../Services/Post";
 import PostController from "../Controllers/Post";
 
@@ -8,9 +8,9 @@ export default()=>{
     const service:PostService = new PostService();
     const controller:PostController = new PostController(service);
 
-    router.post('/',(req:Request,res:Response)=>{controller.CreatePost(req,res)});
-    router.delete('/',(req:Request,res:Response)=>{controller.DeletePost(req,res)});
-    router.put('/',(req:Request,res:Response)=>{controller.ChangePost(req,res)});
+    router.post('/',(req:Request,res:Response,next:NextFunction)=>{controller.CreatePost(req,res,next)});
+    router.delete('/',(req:Request,res:Response,next:NextFunction)=>{controller.DeletePost(req,res,next)});
+    router.put('/',(req:Request,res:Response,next:NextFunction)=>{controller.ChangePost(req,res,next)});
 
     return router;
 }

@@ -3,6 +3,9 @@ import PostComponent from '../../Post/PostComponent'
 import { useEffect, useState, type ChangeEvent } from 'react';
 import type { Post } from '../Main/Main';
 import Comment from '../../Comment/Comment';
+import Nav from '../../Nav/Nav';
+import Footer from '../../Footer/Footer';
+import classes from './PostPage.module.css'
 export default function PostPage(){
     const {id} = useParams();
     const [comment,setComment] = useState<string>();
@@ -36,13 +39,15 @@ export default function PostPage(){
     useEffect(()=>{
         getPage();
     },[])
-    return<>
+    return <>
+    <Nav/>
+    <main className={classes.main}>
     {
         data!=null&&
         <>
     <PostComponent data={data!}/>
-    <input type="text" placeholder='comment' onChange={changeText} value={comment}/>
-    <button onClick={SendComment}>Send comment</button>
+    <input className={classes.input} type="text" placeholder='comment' onChange={changeText} value={comment}/>
+    <button className={classes.button} onClick={SendComment}>Send comment</button>
     </>
     }
     {
@@ -50,5 +55,7 @@ export default function PostPage(){
             return <Comment data={comment}/>
         })
     }
+    </main>
+    <Footer/>
     </>
 }

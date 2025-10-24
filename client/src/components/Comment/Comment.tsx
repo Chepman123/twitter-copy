@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
+import classes from './Comment.module.css'
 import { useEffect, useState, type ChangeEvent } from "react"
+import Options from '../Options/Options';
 
 export interface Comment{
     id:string,
@@ -34,19 +37,16 @@ export default function Comment({data}:{data:Comment}){
        setDate(`${day} ${hour}`);
     },[])
 return (
-  <>
+  <div className={classes.div}>
     {!editMode && (
       <>
-        <h4>{data.username}</h4>
-        <h4>{date}</h4>
-        <p>{content}</p>
-
-        {data.createdByUser && (
-          <>
-            <button onClick={Delete}>Delete</button>
-            <button onClick={() => setEditMode(true)}>Edit</button>
-          </>
-        )}
+      <div className={classes.topDiv}>
+        <Link to={`/profile/${data.username}`}>{data.username}</Link>
+        {!data.createdByUser &&
+          <Options editFunc={() => setEditMode(true)}deleteFunc={Delete}/>
+        }</div>
+        <p className={classes.content}>{content}</p>
+        <p className={classes.p}>{date}</p>
       </>
     )}
 
@@ -56,5 +56,5 @@ return (
         <button onClick={Edit}>Submit</button>
       </>
     )}
-  </>
+  </div>
 )}

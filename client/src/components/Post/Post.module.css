@@ -1,0 +1,48 @@
+.div{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 40px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    margin-bottom: 20px;
+}
+.div a{
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+.p{
+    font-size: 150%;
+}
+.like{
+    background-color: white;
+    color: black;
+    font-size: 200%;
+}
+.like:hover{
+    background-color: white;
+    box-shadow: none;
+    transform: translateY(0);
+    scale: 1.1;
+}
+.info{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.likes{
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+}
+.likes h4{
+    z-index: 1;
+    margin-left: 10px;
+}
+.topDiv{
+    display: flex;
+}

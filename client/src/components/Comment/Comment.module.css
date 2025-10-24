@@ -1,0 +1,36 @@
+.div{
+    border-top: 1px solid rgb(224, 224, 224);
+    padding-top: 30px;
+
+    width: 100%;
+    padding-left: 50px;
+    font-size: 120%;
+}
+.div a{
+    font-weight: bold; 
+    color: black;
+    text-decoration: none;
+}
+.content{
+    width: 90%;
+}
+.p{
+    justify-self: flex-end;
+    margin-bottom: 10px;
+    padding-right: 50px;
+    font-size: 70%;
+    color: rgb(61, 61, 61);
+}
+.topDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.topDiv div{
+    font-size: 75%;
+    margin-right: 30px;
+}
+.topDiv div div{
+    right: 225px;
+}

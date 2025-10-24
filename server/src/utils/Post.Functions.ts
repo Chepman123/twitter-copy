@@ -1,5 +1,5 @@
 import { Pool, PoolClient, QueryResult } from "pg";
-import { Comment } from "../Services/MainSevice";
+import { Comment } from "../Services/Post";
 
 export default class functions{
     static async LikeExists(client:PoolClient,user_id:string,post_id:string):Promise<boolean>{

@@ -1,6 +1,8 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import type { Post } from "../Pages/Main/Main";
 import { Link } from "react-router-dom";
+import classes from './Post.module.css'
+import Options from "../Options/Options";
 
 //#region api
 const api = async(method:string,body:{})=>{
@@ -58,23 +60,25 @@ export default function PostComponent({data}:{data:Post}){
    }
    //#endregion
 
-    return <Link to={`/post/${data.id}`}>
-       <p>{data.content}</p>
+    return <div className={classes.div}>
+    <Link to={`/post/${data.id}`}>
        {editMode&&
        <>
        <input type="text" value={editValue} onChange={changeValue}/>
        <button onClick={ChangePost}>Submit</button>
        </>
        }
+       <div className={classes.topDiv}>
        <Link to={`/profile/${data.created_by}`}>{data.created_by}</Link>
-       {data.created_byUser &&
-       <>
-         <button onClick={()=>setEditMode(!editMode)}>edit</button>
-         <button onClick={DeletePost}>delete</button>
-       </>
-       }
-       <button onClick={Like}>Like</button>
-       <h4>Likes:{data.likes}</h4>
-       <h4>{`Created at ${time}. ${date}`}</h4>
+       {data.created_byUser&&<Options editFunc={()=>{ setEditMode(!editMode)}}deleteFunc={DeletePost}/>}</div>
+       <p className={classes.p}>{data.content}</p>
+       <section className={classes.info}>
+        <div className={classes.likes}>
+       <button onClick={Like} className={classes.like}>&#10084;</button>
+       <h4>{data.likes}</h4>
+       </div>
+       <h4>{`${time}. ${date}`}</h4>
+       </section>
     </Link>
+    </div>
 }

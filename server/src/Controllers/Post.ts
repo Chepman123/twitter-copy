@@ -1,38 +1,38 @@
-import { Post } from "../Services/MainSevice";
+import { Post } from "../Services/Post";
 import PostService from "../Services/Post";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
 export default class PostController{
     constructor(private service:PostService){}
 
-    async CreatePost(req:Request,res:Response){
+    async CreatePost(req:Request,res:Response, next: NextFunction){
         try{
          await this.service.CreatePost(req.body.token,req.body.content);
          res.status(200);
         }
         catch(error){
-            res.status(500).json({error:error});
+            next(error);
         }
     }
-    async DeletePost(req:Request,res:Response){
+    async DeletePost(req:Request,res:Response, next: NextFunction){
         try{
         await this.service.DeletePost(req.body.id);
         res.status(200);
         }
         catch(error){
-            res.status(500).json({error:error});
+             next(error);
         }
     }
-    async ChangePost(req:Request,res:Response){
+    async ChangePost(req:Request,res:Response, next: NextFunction){
         try{
         await this.service.ChangePost(req.body.id,req.body.content);
         res.status(200);
         }
         catch(error){
-            res.status(500).json({error:error});
+             next(error);
         }
     }
-    async GetPostPage(req:Request,res:Response){
+    async GetPostPage(req:Request,res:Response, next: NextFunction){
         try{
             const token:string = req.headers.token as string;
 
@@ -41,25 +41,43 @@ export default class PostController{
         res.json(result);
          }
         catch(error){
-            res.status(500).json({error:error});
+             next(error);
         }
     }
-    async Like(req:Request,res:Response){
+    async Like(req:Request,res:Response, next: NextFunction){
         try{
          await this.service.Like(req.body.token,req.params.id.toString());
          res.status(200);
          }
         catch(error){
-            res.status(500).json({error:error});
+             next(error);
         }
     }
-    async Comment(req:Request,res:Response){
+    async Comment(req:Request,res:Response, next: NextFunction){
+        try{
         this.service.Comment(req.body.token,req.params.id,req.body.content);
+        res.status(200);
+        }
+        catch(error){
+             next(error);
+        }
     }
-    async DeleteComment(req:Request,res:Response){
+    async DeleteComment(req:Request,res:Response, next: NextFunction){
+        try{
         this.service.DeleteComment(req.params.id);
+        res.status(200);
+        }
+        catch(error){
+             next(error);
+        }
     }
-    async EditComment(req:Request,res:Response){
+    async EditComment(req:Request,res:Response, next: NextFunction){
+        try{
         this.service.EditComment(req.params.id,req.body.content);
+        res.status(200);
+        }
+        catch(error){
+             next(error);
+        }
     }
 }

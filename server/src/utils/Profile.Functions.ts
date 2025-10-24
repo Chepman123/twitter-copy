@@ -1,5 +1,5 @@
 import { PoolClient, QueryResult } from "pg";
-import { Post } from "../Services/MainSevice";
+import { Post } from "../Services/Post";
 import Pfunctions from "./Post.Functions";
 import jwt from 'jsonwebtoken'
 export default class functions{

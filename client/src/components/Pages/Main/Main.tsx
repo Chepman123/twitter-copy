@@ -1,7 +1,10 @@
+import classes from './Main.module.css'
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import PostComponent from '../../Post/PostComponent'
 import type{Comment} from '../../Comment/Comment'
+import Nav from "../../Nav/Nav"
+import Footer from "../../Footer/Footer"
 export interface Post{
     id:number,
     content:string,
@@ -11,14 +14,11 @@ export interface Post{
     likes:string,
     comments:Comment[]
 }
-interface Info{
-    profile:string,users:{username:string}[],
-    posts:Post[]
-}
+
 
 export default function Main(){
     const navigator = useNavigate();
-    const [info,setInfo]=useState<Info>();
+    const [info,setInfo]=useState<Post[]>();
     async function getProfile(){
         try{
        const response = await fetch('http://localhost:5000',{
@@ -38,17 +38,12 @@ export default function Main(){
 
         getProfile();
     },[])
-    return <>
-    <ul>
-        {info?.users.map((user)=>{
-            return <li>
-                <Link to={`/profile/${user.username}`}>{user.username}</Link>
-            </li>
-        })}
-    </ul>
-    {info?.posts.map((post)=>{
-        return <PostComponent data={post}/>
-    })}
-    <Link to={`/profile/${info?.profile}`}>Profile</Link>
-    </>
+    return <div className="page">
+  <Nav/>
+  <main className={classes.content}>
+    {info?.map(post => <PostComponent data={post} />)}
+  </main>
+  <Footer/>
+</div>
+
 }

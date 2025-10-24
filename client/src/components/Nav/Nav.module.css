@@ -1,0 +1,22 @@
+nav{
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    z-index: 2;
+    background-color: white;
+    border-right: 1px solid rgb(224, 224, 224);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+nav button{
+    margin: 20px;
+    margin-left: 0px;
+    width: 100%;
+}
+nav div a{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+}

@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express"
+import { Request, Response, Router, NextFunction  } from "express"
 import MainService from "../Services/MainSevice";
 import MainController from "../Controllers/MainController";
 
@@ -8,8 +8,8 @@ export default ()=>{
     const service:MainService = new MainService();
     const controller:MainController = new MainController(service);
 
-
-    router.post('/',(req:Request,res:Response)=>{controller.GetInfo(req,res)});
+    router.get('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetProfile(req,res,next)});
+    router.post('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetInfo(req,res,next)});
 
     return router;
 }

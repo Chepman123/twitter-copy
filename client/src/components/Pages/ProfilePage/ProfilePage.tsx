@@ -4,7 +4,10 @@ import userIcon from '../../../../public/userIcon.png'
 import type { Post } from "../Main/Main";
 import PostComponent from '../../Post/PostComponent';
 import PostCreateModal from "../../PostModal/PostCreateModal";
-import type { Comment } from "../../Comment/Comment";
+import classes from './ProfilePage.module.css'
+import Nav from "../../Nav/Nav";
+import Footer from "../../Footer/Footer";
+import banner from '../../../../public/1.jpg'
 
 interface profile{
     description?:string,
@@ -86,21 +89,28 @@ export default function ProfilePage(){
         }
     }
     //#endregion
-    return <>
-    <img src={profile?.icon||userIcon}/>
-    <h1>{username}</h1>
+    return<>
+      <Nav/>
+    <main className={classes.main}>
+      <img src={banner} className={classes.banner}/>
+      <img src={profile?.icon||userIcon} className={classes.img}/>
+      <div className={classes.div}>
+    
+    <h1 className={classes.h1}>{username}</h1>
+    <div>
     <Link to={'/profile/'+username+'/followers'}>Followers:{profile?.followersCount}</Link>
     <Link to={'/profile/'+username+'/followings'}>Followings:{profile?.followingsCount}</Link>
+    </div>
+    </div>
   {
   !editMode && (
     <>
-      <p>{profile?.description}</p>
+      <p className={classes.p}>{profile?.description}</p>
       {profile?.userAccount && (
         <>
-        <button type="button" onClick={() => setEditMode(true)}>
+        <button className={classes.button} type="button" onClick={() => setEditMode(true)}>
           Edit profile
         </button>
-        <PostCreateModal/>
         </>
       )}
       {!profile?.userAccount &&
@@ -114,7 +124,6 @@ export default function ProfilePage(){
 {
   editMode && (
     <>
-      <p>{profile?.description}</p>
       {profile?.userAccount && (
         <>
         <input type="text" placeholder="description" onChange={ChangeDescription} value={profile?.description}/><br/>
@@ -126,8 +135,11 @@ export default function ProfilePage(){
     </>
   )
 }
+  <div className={classes.border}/>
     {profile?.posts?.map((post:Post)=>{
       return <PostComponent data={post}/>
     })}
+    </main>
+    <Footer/>
     </>
 }

@@ -1,6 +1,7 @@
 *{
     font-family: 'Bahnschrift', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 html{

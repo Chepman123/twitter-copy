@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
+import classes from './Follows.module.css'
+import Nav from "../../Nav/Nav";
+import Footer from "../../Footer/Footer";
+import User from "../../User/User";
 
 export default function Follow({following}:{following:boolean}){
     const {username} = useParams();
@@ -16,13 +20,14 @@ export default function Follow({following}:{following:boolean}){
         }
     }
     useEffect(()=>{getFollows()},[])
-    return<>
-    <ul>
+    return <>
+    <Nav/>
+    <main className={classes.main}>
+        <h1 className={classes.h1}>{following?`Followings`:'Followers'}</h1>
         {follows?.map((follow)=>{
-            return <li>
-                <Link to={'/profile/'+follow.username} key={follow.username}>{follow.username}</Link>
-                </li>
+            return <User profile={follow.username}/>
         })}
-    </ul>
+    </main>
+    <Footer/>
     </>
 }

@@ -21,30 +21,27 @@ export default class RegLogService{
      if(!this.PasswordIsValidate(password)){
         return {status:'password'}
      }
-     try{
+
         const hashedPassword = await bcrypt.hash(password,10);
         const sql:string = `INSERT INTO users(login,password,username) VALUES($1,$2,$3)`;
         await client.query(sql,[login,hashedPassword,username]);
 
+        client.release();
+
        const token:string=jwt.sign({login},secret);
 
        return {token:token,status:'success'}
-     }
-     catch(error){
-        console.error(error);
-        return {status:'database'};
-     }
-     finally{ 
-        client.release();
-     }
+     
+       
     }
     async Log(login:string,password:string):Promise<Status>{
         
         const client = await db.connect();
         const sql:string = `SELECT password FROM users WHERE login = $1`
-        try{
           const result = (await client.query<{password:string}>(sql,[login])).rows;
-  
+          
+          client.release();
+
           if(result.length==0) return {status:'login'};
 
           if(await bcrypt.compare(password,result[0].password)){
@@ -53,14 +50,7 @@ export default class RegLogService{
             return {token:token,status:'success'};
           }
           else return {status:'password'};
-        }
-        catch(error){
-            console.log(error)
-            return {status:'database'};   
-        }
-        finally{
-            client.release();
-        }
+        
     }
     async LoginIsUsed(login:string,client:PoolClient):Promise<boolean>{
       const sql:string = `SELECT * FROM users WHERE login = $1`

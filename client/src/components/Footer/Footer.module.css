@@ -1,0 +1,36 @@
+footer {
+  position: fixed;
+  display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  border-left: 1px solid rgb(224, 224, 224);
+  z-index: 2;
+  background-color: white;
+}
+.h1{
+  overflow-y: hidden;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.ul{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 90%;
+  width: 100%;
+  list-style-type: none;
+}
+.li{
+  display: flex;
+  margin-right: 15%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

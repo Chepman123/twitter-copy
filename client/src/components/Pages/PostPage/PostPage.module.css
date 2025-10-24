@@ -1,0 +1,16 @@
+.main{
+      flex: 1;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  overflow-y: auto;
+}
+.button{
+  width: 20%;
+  margin-bottom: 20px;
+}
+.input{
+  width: 60%;
+}

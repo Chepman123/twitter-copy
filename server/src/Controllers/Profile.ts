@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import ProfileService from "../Services/Profile";
 
 export default class ProfileController {
   constructor(private service: ProfileService) {}
 
-  async GetProfile(req: Request, res: Response) {
+  async GetProfile(req: Request, res: Response, next: NextFunction) {
     try {
 
       const { username, token } = req.query as { username?: string; token?: string };
@@ -17,29 +17,28 @@ export default class ProfileController {
       res.status(200);
       return res.json(result);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Server error" });
+      next(error);
     }
   }
-  async ChangeProfile(req:Request,res:Response){
+  async ChangeProfile(req:Request,res:Response, next: NextFunction){
     try{
         await this.service.changeProfile(req.body.login,req.body.description,req.body.icon);
         res.status(200);
     }
     catch(error){
-      return res.status(500).json({error:error});
+      next(error);
     }
   }
-  async Follow(req:Request,res:Response){
+  async Follow(req:Request,res:Response, next: NextFunction){
      try{
        await this.service.Follow(req.body.loginFollowing,req.body.tokenFollower);
        res.status(200);
     }
     catch(error){
-      return res.status(500).json({error:error});
+      next(error)
     }
   }
-  async getFollowers(req:Request,res:Response){
+  async getFollowers(req:Request,res:Response, next: NextFunction){
     try{
       const sql:string = `SELECT u.username FROM users u 
        JOIN follows f ON f.follower_id = u.id
@@ -49,10 +48,10 @@ export default class ProfileController {
     res.json(result);
     }
     catch(error){
-      res.status(500).json(error);
+      next(error);
     }
   }
-  async getFollowings(req:Request,res:Response){
+  async getFollowings(req:Request,res:Response, next: NextFunction){
     try{
       const sql:string=`SELECT u.username FROM users u 
        JOIN follows f ON f.following_id = u.id
@@ -63,7 +62,7 @@ export default class ProfileController {
     
     }
     catch(error){
-      res.status(500).json(error);
+      next(error);
     }
   }
 }
