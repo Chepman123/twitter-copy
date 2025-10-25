@@ -11,7 +11,7 @@ export default function PostPage(){
     const [comment,setComment] = useState<string>();
     const [data,setData] = useState<Post>();
 
-    function changeText(event:ChangeEvent<HTMLInputElement>){
+    function changeText(event:ChangeEvent<HTMLTextAreaElement>){
         setComment(event.target.value);
     }
 
@@ -28,6 +28,7 @@ export default function PostPage(){
         setData(data);
     }
     async function SendComment() {
+
         await fetch(`http://localhost:5000/post/${id}/comment`,{
             method:'POST',
             headers:{
@@ -46,7 +47,7 @@ export default function PostPage(){
         data!=null&&
         <>
     <PostComponent data={data!}/>
-    <input className={classes.input} type="text" placeholder='comment' onChange={changeText} value={comment}/>
+    <textarea className={classes.input} placeholder='comment' onChange={changeText} value={comment}/>
     <button className={classes.button} onClick={SendComment}>Send comment</button>
     </>
     }

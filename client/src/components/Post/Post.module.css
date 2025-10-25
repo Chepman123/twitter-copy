@@ -8,22 +8,40 @@
     padding: 40px;
     border-bottom: 1px solid rgb(224, 224, 224);
     margin-bottom: 20px;
+    transition: all ease-in-out 0.2s;
+}
+.div textarea{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid black;
+}
+.div:hover{
+    background-color: rgb(241, 241, 241);
 }
 .div a{
     width: 100%;
     text-decoration: none;
     color: black;
 }
+.button{
+    width: 15%;
+}
 .p{
     font-size: 150%;
 }
 .like{
+    text-align: center;
+    display: flex;
+    justify-content: center;
     background-color: white;
     color: black;
     font-size: 200%;
 }
+.div:hover .like{
+    background-color: rgb(241, 241, 241);
+}
 .like:hover{
-    background-color: white;
     box-shadow: none;
     transform: translateY(0);
     scale: 1.1;

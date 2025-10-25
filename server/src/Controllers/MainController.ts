@@ -27,4 +27,13 @@ export default class MainController{
         next(error);
     }
     }
+    async Explore(req:Request,res:Response, next: NextFunction){
+    try{
+            const info:string[] = await this.service.Explore(req.body.text);
+        res.json(info);
+    }
+    catch(error){
+        next(error);
+    }
+    }
 }

@@ -1,0 +1,10 @@
+.button{
+    width: 20%;
+}
+.div{
+  display: flex;
+  justify-content: end;
+}
+.textarea{
+  height: 60%;
+}

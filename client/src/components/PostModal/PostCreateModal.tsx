@@ -1,11 +1,11 @@
 import { useState, type ChangeEvent} from "react";
 import Modal from "../Modal/Modal";
-
+import classes from './PostModal.module.css'
 export default function PostCreateModal(){
     //#region hooks, utils functions
     const [modal,setModal] = useState<boolean>(false);
     const [content,setContent] = useState<string>('');
-    function changeContent(event:ChangeEvent<HTMLInputElement>){
+    function changeContent(event:ChangeEvent<HTMLTextAreaElement>){
         setContent(event.target.value);
     }
     function showModal():void{
@@ -36,8 +36,12 @@ export default function PostCreateModal(){
         <div>
         <button onClick={showModal}>Create Post</button>
         <Modal open={modal} onClick={()=>setModal(false)}>
-            <input type="text" onChange={changeContent} value={content}/>
-            <button onClick={createPost}>create</button>
+            <div className={classes.textarea}>
+            <textarea className={classes.input} onChange={changeContent} value={content} placeholder="What's happening?"/>
+            </div>
+            <div className={classes.div}>
+            <button className={classes.button} onClick={createPost}>Post</button>
+            </div>
         </Modal>
         </div>
     )

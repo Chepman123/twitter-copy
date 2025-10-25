@@ -1,0 +1,22 @@
+.dialog{
+    justify-self: center;
+    align-self: center;
+    border: none;
+    border-radius: 20px;
+    width: 40%;
+    height: 50%;
+}
+.button{
+    width: 5%;
+    background-color: white;
+    color: black;
+    font-size: 150%;
+    padding: 0;
+    margin: 10px;
+    transition: all ease-in-out 0.2s;
+}
+.button:hover{
+    background-color: rgb(226, 226, 226);
+    box-shadow: none;
+    transform: translate(0);
+}

@@ -57,6 +57,7 @@ const result = await client.query(sql, params);
       for(let i=0;i<result.rowCount!;i++){
         result.rows[i].created_byUser = username==result.rows[i].created_by;
         result.rows[i].likes = await Pfunctions.GetLikes(client,result.rows[i].id);
+        result.rows[i].isLiked = await Pfunctions.IsLiked(client,username,result.rows[i].id);
       }
       return result.rows;
     }

@@ -24,4 +24,12 @@ export default class functions{
        }
        return comments;
     }
+    static async IsLiked(client:PoolClient,username:string,post_id:string):Promise<boolean>{
+       const sql:string = `SELECT l.* FROM likes l 
+       JOIN users u ON l.user_id = u.id 
+       WHERE u.username = $1 AND l.post_id = $2`;
+       const result:QueryResult = await client.query(sql,[username,post_id]);
+
+       return result.rowCount!>0;
+    }
 }

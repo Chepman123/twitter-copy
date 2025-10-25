@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type CSSProperties } from "react";
 import type { Post } from "../Pages/Main/Main";
 import { Link } from "react-router-dom";
 import classes from './Post.module.css'
@@ -23,9 +23,11 @@ export default function PostComponent({data}:{data:Post}){
   //#region hooks
     const[time,setTime]=useState<string>();
     const[date,setDate]=useState<string>();
-    const[editValue,setValue] = useState<string>();
+    const[editValue,setValue] = useState<string>(data.content);
     const[editMode,setEditMode] = useState<boolean>();
-    const changeValue = (event:ChangeEvent<HTMLInputElement>)=>{
+    const[isLiked,setIsLiked] = useState<boolean>(data.isLiked)
+    const[likes,setLikes] = useState<string>('');
+    const changeValue = (event:ChangeEvent<HTMLTextAreaElement>)=>{
       setValue(event.target.value);
     }
     useEffect(()=>{
@@ -35,6 +37,10 @@ export default function PostComponent({data}:{data:Post}){
         const time:string =`${ fulldate.getHours().toString()}:${fulldate.getMinutes().toString()}`;
         setTime(time);
     },[])
+    useEffect(()=>{
+      setIsLiked(data.isLiked)
+    setLikes(data.likes);
+  },[data.isLiked]);
     //#endregion
     //#region editing
     function DeletePost() {
@@ -48,6 +54,9 @@ export default function PostComponent({data}:{data:Post}){
     //#region Like and comment
     async function Like() {
       try{
+         setIsLiked(!isLiked);
+         if(isLiked) setLikes((Number(likes)-1).toString());
+      else setLikes((Number(likes)+1).toString());
     await fetch(`http://localhost:5000/post/${data.id}/like`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -62,20 +71,24 @@ export default function PostComponent({data}:{data:Post}){
 
     return <div className={classes.div}>
     <Link to={`/post/${data.id}`}>
-       {editMode&&
-       <>
-       <input type="text" value={editValue} onChange={changeValue}/>
-       <button onClick={ChangePost}>Submit</button>
-       </>
-       }
-       <div className={classes.topDiv}>
+     <div className={classes.topDiv}>
        <Link to={`/profile/${data.created_by}`}>{data.created_by}</Link>
        {data.created_byUser&&<Options editFunc={()=>{ setEditMode(!editMode)}}deleteFunc={DeletePost}/>}</div>
-       <p className={classes.p}>{data.content}</p>
+       {editMode&&
+       <>
+       <textarea value={editValue} onChange={changeValue}/>
+       <button className={classes.button} onClick={ChangePost}>Submit</button>
+       </>
+       }
+      {!editMode&&
+       <p className={classes.p}>{editValue}</p>
+      }
+      
        <section className={classes.info}>
         <div className={classes.likes}>
-       <button onClick={Like} className={classes.like}>&#10084;</button>
-       <h4>{data.likes}</h4>
+       <button onClick={(e)=>{  e.preventDefault(); 
+      e.stopPropagation();Like()}} className={classes.like} style={{color:isLiked?'red':'black'}as CSSProperties}>&#10084;</button>
+       <h4>{likes}</h4>
        </div>
        <h4>{`${time}. ${date}`}</h4>
        </section>

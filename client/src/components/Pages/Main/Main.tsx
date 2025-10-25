@@ -12,7 +12,8 @@ export interface Post{
     created_at:string,
     created_byUser:boolean,
     likes:string,
-    comments:Comment[]
+    comments:Comment[],
+    isLiked:boolean
 }
 
 

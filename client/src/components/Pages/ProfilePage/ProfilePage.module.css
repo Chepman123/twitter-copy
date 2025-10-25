@@ -2,6 +2,13 @@
     width: 60%;
     justify-self: center;
 }
+.main textarea{
+    margin-left: 20px;
+    border: 1px solid black;
+    width: 80%;
+    padding-left: 10px;
+    border-radius: 10px;
+}
 .border{
     border-bottom: 1px solid rgb(224, 224, 224);
 }
@@ -33,12 +40,12 @@
     margin: 20px;
 }
 .img{
-    top:400px;
-    left: 300px;
+    top:440px;
+    left: 330px;
     border-radius: 100px;
    position: absolute;
     z-index: 2;
-    width: 15%;
+    width: 12%;
 }
 .h1{
     font-size: 400%;

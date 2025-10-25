@@ -10,6 +10,7 @@ export default ()=>{
 
     router.get('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetProfile(req,res,next)});
     router.post('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetInfo(req,res,next)});
+     router.post('/explore',(req:Request,res:Response,next:NextFunction)=>{controller.Explore(req,res,next)});
 
     return router;
 }

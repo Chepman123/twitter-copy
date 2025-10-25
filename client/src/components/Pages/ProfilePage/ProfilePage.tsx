@@ -25,10 +25,14 @@ export default function ProfilePage(){
     const {username} = useParams();
     const [profile,setProfile] = useState<profile>(); 
     const [editMode,setEditMode]=useState<boolean>(false);
-    function ChangeDescription(event:ChangeEvent<HTMLInputElement>){
+    function ChangeDescription(event:ChangeEvent<HTMLTextAreaElement>){
          if(!event.target.value) return;
          setProfile({...profile, description:event.target.value});
     }
+    useEffect(()=>{
+      getData()
+      setEditMode(false);
+    },[username])
     //#endregion 
     //#region getData
     async function getData(){
@@ -71,13 +75,14 @@ export default function ProfilePage(){
     
     //#region submitProfile
     async function SubmitProfile(){
+      setEditMode(false);
       try{
       await fetch('http://localhost:5000/profile',{
         method:'PUT',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({login:username,description:!profile?.description,icon:''})
+        body:JSON.stringify({login:username,description:profile?.description,icon:''})
       })
-      setEditMode(false);
+      
       }
       catch(error){
         console.error(error);
@@ -126,7 +131,7 @@ export default function ProfilePage(){
     <>
       {profile?.userAccount && (
         <>
-        <input type="text" placeholder="description" onChange={ChangeDescription} value={profile?.description}/><br/>
+        <textarea placeholder="description" onChange={ChangeDescription} value={profile?.description}/><br/>
         <input type="file" onChange={fileHandler} /><br/>
         <button type="button" onClick={SubmitProfile}>
           Submit

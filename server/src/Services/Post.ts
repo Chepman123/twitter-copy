@@ -16,7 +16,8 @@ export interface Post{
     created_at:string,
     created_byUser:boolean,
     likes:string,
-    comments:Comment[]
+    comments:Comment[],
+    isLiked:boolean
 }
 export default class PostService{
   //#region post
@@ -63,6 +64,7 @@ export default class PostService{
           result.rows[0].created_byUser = result.rows[0].created_by == username;
           result.rows[0].likes = await Pfunctions.GetLikes(client,result.rows[0].id);
           result.rows[0].comments = await Pfunctions.GetComments(client,id,username);
+          result.rows[0].isLiked = await Pfunctions.IsLiked(client,username,result.rows[0].id);
 
       client.release();
 

@@ -1,6 +1,8 @@
 .button{
-    background-color: white;
+   background: none;
     color: black;
+    display: flex;
+    justify-content: center;
     font-size: 200%;
     padding: 0;
 }

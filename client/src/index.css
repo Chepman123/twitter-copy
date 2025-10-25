@@ -46,3 +46,18 @@ button:active{
     transform: translateY(0);
     box-shadow: none;
 }
+textarea{
+    border: none;
+    font-size: 150%;
+    width: 80%;
+}
+textarea {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+textarea{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
