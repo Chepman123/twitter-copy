@@ -6,6 +6,8 @@ import ProfilePage from './components/Pages/ProfilePage/ProfilePage';
 import Follow from './components/Pages/Follows/Follows';
 import PostPage from './components/Pages/PostPage/PostPage';
 import Explore from './components/Pages/Explore/Explore';
+import Channels from './components/Pages/Channels/Channels';
+import ChannelPage from './components/Pages/ChannelPage/ChannelPage';
 
 
 export default function App() {
@@ -20,6 +22,8 @@ export default function App() {
         <Route path='/profile/:username/followings' element={<Follow following={true}/>}/>
          <Route path='/post/:id' element={<PostPage/>}/>
          <Route path='/explore' element={<Explore/>}/>
+         <Route path='/channels' element={<Channels/>}/>
+         <Route path='/channels/:name' element={<ChannelPage/>}/>
       </Routes>
     </BrowserRouter>
   );

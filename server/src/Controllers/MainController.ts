@@ -29,7 +29,7 @@ export default class MainController{
     }
     async Explore(req:Request,res:Response, next: NextFunction){
     try{
-            const info:string[] = await this.service.Explore(req.body.text);
+            const info = await this.service.Explore(req.body.text);
         res.json(info);
     }
     catch(error){

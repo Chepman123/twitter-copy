@@ -55,7 +55,7 @@ export default class ProfileController {
     try{
       const sql:string=`SELECT u.username FROM users u 
        JOIN follows f ON f.following_id = u.id
-       WHERE follower_id = $1`;
+       WHERE follower_id = $1 AND following_id IS NOT NULL`;
     const result = await this.service.GetFollows(req.params.username as string,sql); 
     res.status(200);
     res.json(result);

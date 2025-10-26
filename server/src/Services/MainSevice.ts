@@ -34,10 +34,14 @@ export default class MainService{
 
         return username;
     }
-    async Explore(text:string):Promise<string[]>{
+    async Explore(text:string):Promise<{username:string,type:string}[]>{
         const client = await db.connect();
-const sql = `SELECT username FROM users WHERE username LIKE '%' || $1 || '%'`;
-const result: QueryResult = await client.query(sql, [text]);
+        const sql = `(SELECT username,'user' AS type FROM users
+        WHERE username LIKE '%' || $1 || '%')
+        UNION
+        (SELECT name,'channel' AS type FROM channels
+        WHERE name LIKE '%'||$1||'%')`;
+        const result: QueryResult = await client.query(sql, [text]);
 
        return result.rows;
     }

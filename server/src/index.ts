@@ -7,6 +7,7 @@ import Profile from './Routes/Profile';
 import Post from './Routes/Post';
 import PostPage from './Routes/PostPage';
 import errorHandle from './utils/errorHandle';
+import Channels from './Routes/Channels';
 
 const app = express();
 app.use(helmet());
@@ -37,6 +38,7 @@ app.use('/profile', Profile());
 
 app.use('/profile/post',Post());
 app.use('/post',PostPage());
+app.use('/channels',Channels());
 
 app.use(errorHandle);
 const PORT = 5000;

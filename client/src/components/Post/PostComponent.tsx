@@ -90,7 +90,7 @@ export default function PostComponent({data}:{data:Post}){
       e.stopPropagation();Like()}} className={classes.like} style={{color:isLiked?'red':'black'}as CSSProperties}>&#10084;</button>
        <h4>{likes}</h4>
        </div>
-       <h4>{`${time}. ${date}`}</h4>
+       <h4>{`${time} ${date}`}</h4>
        </section>
     </Link>
     </div>

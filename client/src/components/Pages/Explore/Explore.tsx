@@ -3,10 +3,11 @@ import Footer from "../../Footer/Footer";
 import Nav from "../../Nav/Nav";
 import classes from './Explore.module.css'
 import User from "../../User/User";
+import Channel from "../../Channel/Channel";
 
 export default function Explore(){
     const[text,SetText] = useState<string>();
-    const[users,setUsers] = useState<{username:string}[]>([]);
+    const[users,setUsers] = useState<{username:string,type:string}[]>([]);
     function changeText(event:ChangeEvent<HTMLInputElement>){{
         SetText(event.target.value);
     }}
@@ -25,9 +26,15 @@ export default function Explore(){
         <input type="text" placeholder="search..." value={text} onChange={changeText}/>
         <button className={classes.button} onClick={Search}>Search</button>
         </div>
-        {users.map((user)=>{
-            return <User profile={user.username}/>
-        })}
+       {users.map((user) => (
+  user.type === "user"
+    ? <User key={user.username} profile={user.username} />
+    : user.type === "channel"
+      ? <Channel key={user.username} name={user.username} />
+      : null
+        ))}
+
+
     </main>
     <Footer/>
     </>

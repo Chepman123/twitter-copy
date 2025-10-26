@@ -25,7 +25,7 @@ export default class functions{
     static async getCountFollows(client:PoolClient,username:string, follower:boolean):Promise<number>{
         const sql:string = `SELECT COUNT(*) FROM follows f
   JOIN users u ON u.id=f.${follower?'following_id':'follower_id'}
-  where u.username = $1`;
+  where u.username = $1 AND f.following_id IS NOT NULL`;
         return (await client.query(sql,[username])).rows[0].count;
     }
     static async followingExists(client:PoolClient,follower_id:string,following_id:string):Promise<boolean>{
