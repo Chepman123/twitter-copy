@@ -7,7 +7,8 @@ export interface Comment{
     username:string,
     content:string,
     date:string,
-    createdByUser:boolean
+    createdByUser:boolean,
+    channel:string|null
 }
 export interface Post{
     id:number,
@@ -21,13 +22,23 @@ export interface Post{
 }
 export default class PostService{
   //#region post
-    async CreatePost(token:string,content:string){
+    async CreatePost(token:string,content:string,channelName:string){
       const client:PoolClient = await db.connect();
         const login:string = await functions.DecodeToken(token);
         const username:string = await functions.getUsername(client,login);
         const id:string = await functions.getId(client,username);
 
-        const sql:string = `INSERT INTO posts(created_by,content) VALUES($1,$2)`;
+        let sql:string = '';
+
+        if(channelName!=''){
+          sql = `SELECT id FROM channels WHERE name = $1`;
+          const result:QueryResult = await client.query(sql,[channelName]);
+          const id = result.rows[0].id;
+          sql = `INSERT INTO posts(created_by,content,channel) VALUES($1,$2,${id})`;
+        }
+        else{
+          sql = `INSERT INTO posts(created_by,content) VALUES($1,$2)`;
+        }
       
         await client.query(sql,[id,content]);
       
@@ -56,8 +67,9 @@ export default class PostService{
       const client:PoolClient = await db.connect();
       const login:string = await functions.DecodeToken(token);
       const username:string = await functions.getUsername(client,login);
-        const sql:string = `SELECT p.id,p.content,u.username AS created_by,p.created_at FROM posts p
+        const sql:string = `SELECT p.id,p.content,c.name AS channel,u.username AS created_by,p.created_at FROM posts p
       JOIN users u ON u.id = p.created_by
+      LEFT JOIN channels c ON c.id = p.channel
       WHERE p.id = $1`;
 
         const result:QueryResult = await client.query(sql,[id]);

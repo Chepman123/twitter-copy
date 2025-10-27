@@ -7,7 +7,7 @@ export default class PostController{
 
     async CreatePost(req:Request,res:Response, next: NextFunction){
         try{
-         await this.service.CreatePost(req.body.token,req.body.content);
+         await this.service.CreatePost(req.body.token,req.body.content,req.body.channelName);
          res.status(200);
         }
         catch(error){

@@ -49,4 +49,28 @@ export default class ChannelsController{
         next(error);
     }
     }
+    async Edit(req:Request,res:Response, next: NextFunction){
+    try{
+        await this.service.Edit(req.params.name,req.body.description);
+    }
+    catch(error){
+        next(error);
+    }
+    }
+    async DeleteAdmin(req:Request,res:Response, next: NextFunction){
+    try{
+        await this.service.DeleteAdmin(req.params.name,req.body.admin);
+    }
+    catch(error){
+        next(error);
+    }
+    }
+     async AddAdmin(req:Request,res:Response, next: NextFunction){
+    try{
+        await this.service.AddAdmin(req.params.name,req.body.admin);
+    }
+    catch(error){
+        next(error);
+    }
+    }
 }

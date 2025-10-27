@@ -34,9 +34,10 @@ export default class functions{
         return posts;
     }
     static async getPost(client:PoolClient,id:string,username:string):Promise<Post>{
-       const sql:string = ` SELECT p.id, p.content, u.username AS created_by, p.created_at
+       const sql:string = ` SELECT p.id, p.content,c.name AS channel, u.username AS created_by, p.created_at
     FROM posts p
     JOIN users u ON u.id = p.created_by
+    LEFT JOIN channels c ON c.id = p.channel
     WHERE p.id = $1`
     const result:Post = (await client.query(sql, [id])).rows[0];
 

@@ -13,7 +13,8 @@ export interface Post{
     created_byUser:boolean,
     likes:string,
     comments:Comment[],
-    isLiked:boolean
+    isLiked:boolean,
+    channel:string
 }
 
 

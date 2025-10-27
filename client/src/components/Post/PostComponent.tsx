@@ -72,6 +72,7 @@ export default function PostComponent({data}:{data:Post}){
     return <div className={classes.div}>
     <Link to={`/post/${data.id}`}>
      <div className={classes.topDiv}>
+      <Link to={`/channels/${data.channel}`}>{data.channel}</Link>
        <Link to={`/profile/${data.created_by}`}>{data.created_by}</Link>
        {data.created_byUser&&<Options editFunc={()=>{ setEditMode(!editMode)}}deleteFunc={DeletePost}/>}</div>
        {editMode&&

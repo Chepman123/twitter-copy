@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent} from "react";
 import Modal from "../Modal/Modal";
 import classes from './PostModal.module.css'
-export default function PostCreateModal(){
+export default function PostCreateModal({channelName}:{channelName?:string}){
     //#region hooks, utils functions
     const [modal,setModal] = useState<boolean>(false);
     const [content,setContent] = useState<string>('');
@@ -22,7 +22,8 @@ export default function PostCreateModal(){
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
             token:localStorage.getItem('token'),
-            content:content
+            content:content,
+            channelName:channelName??''
         })
        })
     }

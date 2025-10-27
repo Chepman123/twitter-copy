@@ -11,6 +11,9 @@ export default ()=>{
     router.post('/follow',(req:Request,res:Response,next:NextFunction)=>{controller.Follow(req,res,next)});
     router.get('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetFollowedChannels(req,res,next)});
      router.get('/:name',(req:Request,res:Response,next:NextFunction)=>{controller.GetChannel(req,res,next)});
+     router.put('/:name',(req:Request,res:Response,next:NextFunction)=>{controller.Edit(req,res,next)});
+     router.delete('/:name',(req:Request,res:Response,next:NextFunction)=>{controller.DeleteAdmin(req,res,next)});
+     router.post('/:name/newAdmin',(req:Request,res:Response,next:NextFunction)=>{controller.AddAdmin(req,res,next)});
 
     return router;
 }

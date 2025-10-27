@@ -77,4 +77,32 @@ export default class ChannelsService{
         }
         await client.query(sql,[id,channel_id]);
     }
+    async Edit(channel_name:string,description:string){
+        const client:PoolClient = await db.connect();
+
+        const sql:string = `UPDATE channels SET description = $1 WHERE name = $2`;
+
+        client.query(sql,[description,channel_name]);
+    }
+    async DeleteAdmin(channel_name:string,admin:string){
+        const client:PoolClient = await db.connect();
+
+        const sql:string = `DELETE FROM channel_admins ca
+        JOIN users u ON u.id = ca.admin_id
+        JOIN channels c ON c.id = ca.channel_id
+        WHERE c.name = $1 AND u.username = $2`;
+
+        client.query(sql,[channel_name,admin]);
+    }
+    async AddAdmin(channel_name:string,admin:string){
+        const client:PoolClient = await db.connect();
+        const idUser:string = await functions.getId(client,admin);
+        let sql:string = `SELECT id FROM channels WHERE name = $1`
+
+        const id:string = (await client.query(sql,[channel_name])).rows[0].id;
+ 
+        sql=`INSERT INTO channel_admins(channel_id,admin_id) VALUES($1,$2)`;
+
+        client.query(sql,[id,idUser]);
+    }
 }
