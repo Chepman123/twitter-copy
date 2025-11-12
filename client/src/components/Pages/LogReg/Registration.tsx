@@ -4,7 +4,7 @@ import classes from './LoginReg.module.css'
 import { useState, type ChangeEvent } from 'react';
 
 //#region help types and functions
-type loginStatus =  {status:'success',token:string}|{status:`login`|`password`|'database'}; 
+type loginStatus =  {status:'success',token:string}|{status:`login`|`password`|'database'|'username'}; 
  async function RegApi(login:string,password:string,username:string):Promise<loginStatus>
     {
          const response = await fetch('http://localhost:5000/registration',
@@ -72,6 +72,9 @@ export default function Registration(){
                 break;
              case 'database':
                 setMessage('database error');
+                break;
+             case 'username':
+                setMessage('username already exists');
                 break;
         }
       }

@@ -51,7 +51,7 @@ export default function Login(){
         else 
             switch(result.status){
             case 'login':
-                setMessage(`login doesn't match`);
+                setMessage(`login or username doesn't match`);
                 break;
             case 'password':
                 setMessage(`password doesn't match`);
@@ -74,7 +74,7 @@ export default function Login(){
         <section className={classes.section}>
             <h1 className={classes.h1}>Log in</h1>
             <form className={classes.form}>
-                <input type='text' value={login} onChange={changeLogin} placeholder='login'/>
+                <input type='text' value={login} onChange={changeLogin} placeholder='login or username'/>
                 <input type='password' value={password} onChange={changePassword} placeholder='password' />
                 <Link to="/registration">create account</Link>
                 <h2>{message}</h2>
