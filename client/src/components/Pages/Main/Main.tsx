@@ -5,6 +5,7 @@ import PostComponent from '../../Post/PostComponent'
 import type{Comment} from '../../Comment/Comment'
 import Nav from "../../Nav/Nav"
 import Footer from "../../Footer/Footer"
+import service from '../../../services/Main'
 export interface Post{
     id:number,
     content:string,
@@ -19,27 +20,19 @@ export interface Post{
 
 
 export default function Main(){
+  //#region hooks
     const navigator = useNavigate();
     const [info,setInfo]=useState<Post[]>();
-    async function getProfile(){
-        try{
-       const response = await fetch('http://localhost:5000',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({token:localStorage.getItem('token')})
-       })
-       const result = (await response.json());
-       setInfo(result);
-       }
-       catch(error){
-        console.error(error);
-       }
-    }
     useEffect(()=>{
         if(!localStorage.getItem('token'))navigator('/login');
 
         getProfile();
     },[])
+    //#endregion
+    async function getProfile(){
+       setInfo(await service.getProfile());
+    }
+    
     return <div className="page">
   <Nav/>
   <main className={classes.content}>

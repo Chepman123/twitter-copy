@@ -1,29 +1,23 @@
-import { useState, type ChangeEvent } from "react";
+import { useState} from "react";
 import Footer from "../../Footer/Footer";
 import Nav from "../../Nav/Nav";
 import classes from './Explore.module.css'
 import User from "../../User/User";
 import Channel from "../../Channel/Channel";
+import service from '../../../services/Main'
 
 export default function Explore(){
-    const[text,SetText] = useState<string>();
+    const[text,SetText] = useState<string>('');
     const[users,setUsers] = useState<{username:string,type:string}[]>([]);
-    function changeText(event:ChangeEvent<HTMLInputElement>){{
-        SetText(event.target.value);
-    }}
+
     async function Search() {
-        const response = await fetch('http://localhost:5000/explore',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({text:text})
-        });
-        setUsers(await response.json());
+        setUsers(await service.Search(text));
     }
     return <>
     <Nav/>
     <main className={classes.main}>
         <div className={classes.search}>
-        <input type="text" placeholder="search..." value={text} onChange={changeText}/>
+        <input type="text" placeholder="search..." value={text} onChange={(e)=>SetText(e.target.value)}/>
         <button className={classes.button} onClick={Search}>Search</button>
         </div>
        {users.map((user) => (

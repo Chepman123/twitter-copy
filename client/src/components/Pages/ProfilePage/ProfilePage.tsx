@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import userIcon from '../../../../public/userIcon.png'
 import type { Post } from "../Main/Main";
 import PostComponent from '../../Post/PostComponent';
-import PostCreateModal from "../../PostModal/PostCreateModal";
+import service from '../../../services/ProfilePage';
 import classes from './ProfilePage.module.css'
 import Nav from "../../Nav/Nav";
 import Footer from "../../Footer/Footer";
@@ -21,7 +21,7 @@ interface profile{
 
 export default function ProfilePage(){
 
-   //#region hooks and utils functions
+   //#region hooks
     const {username} = useParams();
     const [profile,setProfile] = useState<profile>(); 
     const [editMode,setEditMode]=useState<boolean>(false);

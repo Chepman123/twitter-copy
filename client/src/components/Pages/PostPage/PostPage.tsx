@@ -6,40 +6,22 @@ import Comment from '../../Comment/Comment';
 import Nav from '../../Nav/Nav';
 import Footer from '../../Footer/Footer';
 import classes from './PostPage.module.css'
+import service from '../../../services/PostPage'
 export default function PostPage(){
+    //#region hooks
     const {id} = useParams();
-    const [comment,setComment] = useState<string>();
+    const [comment,setComment] = useState<string>('');
     const [data,setData] = useState<Post>();
-
-    function changeText(event:ChangeEvent<HTMLTextAreaElement>){
-        setComment(event.target.value);
-    }
-
-    async function getPage(){
-      const response = await fetch(`http://localhost:5000/post/${id}`, {
-       method: 'GET',
-       headers: {
-      'Content-Type': 'application/json',
-      'token':  localStorage.getItem('token')!
-      }
-       });
-
-        const data:Post = await response.json();
-        setData(data);
-    }
-    async function SendComment() {
-
-        await fetch(`http://localhost:5000/post/${id}/comment`,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({token:localStorage.getItem('token'),content:comment})
-        });
-    }
-    useEffect(()=>{
+     useEffect(()=>{
         getPage();
     },[])
+    //#endregion
+    async function getPage(){
+        setData(await service.getPage(id!));
+    }
+    async function SendComment() {
+        service.SendComment(comment,id!);
+    }
     return <>
     <Nav/>
     <main className={classes.main}>
@@ -47,7 +29,7 @@ export default function PostPage(){
         data!=null&&
         <>
     <PostComponent data={data!}/>
-    <textarea className={classes.input} placeholder='comment' onChange={changeText} value={comment}/>
+    <textarea className={classes.input} placeholder='comment' onChange={(e)=>setComment(e.target.value)} value={comment}/>
     <button className={classes.button} onClick={SendComment}>Send comment</button>
     </>
     }

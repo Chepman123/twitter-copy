@@ -3,7 +3,7 @@ import Footer from "../../Footer/Footer";
 import Nav from "../../Nav/Nav";
 import classes from './Channels.module.css'
 import Channel from "../../Channel/Channel";
-
+import service from '../../../services/ChannelPage'
 export default function Channels(){
     const[creatingMode,setMode]=useState<boolean>(false);
     const[name,setName] = useState<string>('');
@@ -16,18 +16,10 @@ export default function Channels(){
         setDesc(event.target.value);
     }
     async function Create() {
-        await fetch('http://localhost:5000/channels',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({name:name,description:desc})
-        })
+        service.Create(desc);
     }
     async function GetChannels() {
-        const response = await fetch('http://localhost:5000/channels',{
-      method:'GET',
-      headers:{'Content-Type': 'application/json','Authorization': `Bearer ${localStorage.getItem('token')}}`}
-    });
-        const result = await response.json();
+        const result = await service.GetChannels();
         setChannels(result);
     }
     useEffect(()=>{

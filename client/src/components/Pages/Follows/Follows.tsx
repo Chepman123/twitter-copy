@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classes from './Follows.module.css'
 import Nav from "../../Nav/Nav";
 import Footer from "../../Footer/Footer";
 import User from "../../User/User";
+import service from '../../../services/Main'
 
 export default function Follow({following}:{following:boolean}){
     const {username} = useParams();
     const [follows,setFollows] = useState<{username:string}[]>();
     async function getFollows(){
-        let api:string = `http://localhost:5000/profile/${username}`;
-        api += following?`/followings`:'/followers';
-        try{
-        const response = await fetch(api);
-        setFollows(await response.json());
-        }
-        catch(error){
-            console.error(error);
-        }
+        setFollows(await service.getFollows(following,username!));
     }
     useEffect(()=>{getFollows()},[])
     return <>

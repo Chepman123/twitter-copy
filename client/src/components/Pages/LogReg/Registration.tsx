@@ -1,28 +1,9 @@
 import {Link, useNavigate } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
 import classes from './LoginReg.module.css'
-import { useState, type ChangeEvent } from 'react';
+import { useState} from 'react';
+import service, { type loginStatus } from '../../../services/RegLog';
 
-//#region help types and functions
-type loginStatus =  {status:'success',token:string}|{status:`login`|`password`|'database'|'username'}; 
- async function RegApi(login:string,password:string,username:string):Promise<loginStatus>
-    {
-         const response = await fetch('http://localhost:5000/registration',
-            {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify({
-                    login:login,
-                    password:password,
-                    username:username
-                })
-            }
-        )
-        if(!response.ok) throw new Error('Network error');
-        
-        return await response.json();
-    } 
-//#endregion
 
 export default function Registration(){
     //#region  hooks and utils
@@ -33,18 +14,6 @@ export default function Registration(){
     const [passwordAgain,setPasswordAgain] = useState<string>('');
     const [message,setMessage] = useState<string>('');
 
-    const changeLogin = (event:ChangeEvent<HTMLInputElement>)=>{
-        setLogin(event.target.value);
-    }
-    const changeUsername = (event:ChangeEvent<HTMLInputElement>)=>{
-        setUsername(event.target.value);
-    }
-    const changePassword = (event:ChangeEvent<HTMLInputElement>)=>{
-        setPassword(event.target.value);
-    }
-    const changePasswordAgain = (event:ChangeEvent<HTMLInputElement>)=>{
-        setPasswordAgain(event.target.value);
-    }
     //#endregion
     //#region registration function
 
@@ -56,8 +25,7 @@ export default function Registration(){
         return;
      }
 
-      try{
-        const result:loginStatus = await RegApi(login,password,username);
+        const result:loginStatus = await service.RegApi(login,password,username);
         if(result.status==='success'){
             localStorage.setItem('token',result.token);
              navigator('/');
@@ -77,10 +45,6 @@ export default function Registration(){
                 setMessage('username already exists');
                 break;
         }
-      }
-      catch(error){
-        console.error(error);
-      }
    }
    //#endregion
     return <main className={classes.registration}>
@@ -90,10 +54,10 @@ export default function Registration(){
         <section className={classes.section}>
             <h1 className={classes.h1}>Registration</h1>
             <form className={classes.form}>
-                <input type='text' value={login} onChange={changeLogin} placeholder='login'/>
-                <input type='text' value={username} onChange={changeUsername} placeholder='username'/>
-                <input type='password' value={password} onChange={changePassword} placeholder='password'/>
-                <input type='password' value={passwordAgain} onChange={changePasswordAgain} placeholder='repeat password'/>
+                <input type='text' value={login} onChange={(e)=>setLogin(e.target.value)} placeholder='login'/>
+                <input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} placeholder='username'/>
+                <input type='password' value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password'/>
+                <input type='password' value={passwordAgain} onChange={(e)=>setPasswordAgain(e.target.value)} placeholder='repeat password'/>
                 <Link to="/login">I have already account</Link>
                 <h2>{message}</h2>
                 <button type='button' onClick={Reg}>Create account</button>
