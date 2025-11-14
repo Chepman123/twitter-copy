@@ -1,16 +1,8 @@
 import { PoolClient } from "pg";
 import db from '../db'
 import functions from '../utils/Profile.Functions'
-import { Post } from "./Post";
-interface profile{
-    description:string;
-    icon:string;
-    userAccount:boolean;
-    followersCount:number;
-    followingsCount:number;
-    isFollowed:boolean;
-    posts:Post[]
-}
+import profile from "../Interfaces/profile";
+
 export default class ProfileService{
     //#region getProfile
     async getProfile(username:string,token:string):Promise<profile>
@@ -26,9 +18,8 @@ export default class ProfileService{
         result.followingsCount = await functions.getCountFollows(client,username,false);
         result.isFollowed=await functions.isFollowed(client,await functions.getUsername(client,login),username);
         result.posts = await functions.getPosts(client,false,username);
-        return result;
-     
         client.release();
+        return result;
     }
    //#endregion
     //#region change profile

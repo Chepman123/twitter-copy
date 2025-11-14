@@ -1,23 +1,14 @@
 import { useEffect, useState, type ChangeEvent } from "react"
 import { Link, useParams } from "react-router-dom";
 import userIcon from '../../../../public/userIcon.png'
-import type { Post } from "../Main/Main";
 import PostComponent from '../../Post/PostComponent';
 import service from '../../../services/ProfilePage';
 import classes from './ProfilePage.module.css'
 import Nav from "../../Nav/Nav";
 import Footer from "../../Footer/Footer";
 import banner from '../../../../public/1.jpg'
-
-interface profile{
-    description?:string,
-    icon?:string,
-    userAccount?:boolean,
-    followersCount?:number,
-    followingsCount?:number,
-    isFollowed?:boolean,
-    posts?:Post[]
-}
+import type { Post } from "../../../interfaces/Post";
+import type { profile } from "../../../interfaces/Profile";
 
 export default function ProfilePage(){
 
@@ -33,67 +24,27 @@ export default function ProfilePage(){
       getData()
       setEditMode(false);
     },[username])
-    //#endregion 
-    //#region getData
-    async function getData(){
-     try{
-       const response = await fetch(`http://localhost:5000/profile/?username=${username}&token=${localStorage.getItem('token')}`);
-       const result:profile = await response.json();
-      setProfile(result);
-       
-    }
-      catch(error)
-    {
-      console.error(error);
-    }
-    }
     useEffect(()=>{
        getData();
     },[])
-    //#endregion
-
-    //#region following
+    //#endregion 
+    async function getData(){
+      setProfile(await service.getData(username!));
+    }
     
     async function Follow() {
-      try{
-      await fetch('http://localhost:5000/profile',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          loginFollowing:username,
-          tokenFollower:localStorage.getItem('token')
-        })
-        
-      })
+      service.Follow(username!);
       setProfile({...profile,isFollowed:!profile?.isFollowed});
     }
-    catch(error){
-      console.error(error);
-    }
-    }
-    //#endregion
-    
-    //#region submitProfile
     async function SubmitProfile(){
       setEditMode(false);
-      try{
-      await fetch('http://localhost:5000/profile',{
-        method:'PUT',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({login:username,description:profile?.description,icon:''})
-      })
-      
-      }
-      catch(error){
-        console.error(error);
-      }
+      service.SubmitProfile(username!,profile?.description!)
     }
     function fileHandler(event:ChangeEvent<HTMLInputElement>):void{
         if(event.target.files?.length){
           //setImageEdit(event.target.files[0]);
         }
     }
-    //#endregion
     return<>
       <Nav/>
     <main className={classes.main}>

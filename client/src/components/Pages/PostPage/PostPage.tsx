@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
 import PostComponent from '../../Post/PostComponent'
-import { useEffect, useState, type ChangeEvent } from 'react';
-import type { Post } from '../Main/Main';
+import { useEffect, useState} from 'react';
 import Comment from '../../Comment/Comment';
 import Nav from '../../Nav/Nav';
 import Footer from '../../Footer/Footer';
 import classes from './PostPage.module.css'
 import service from '../../../services/PostPage'
+import type { Post } from '../../../interfaces/Post';
 export default function PostPage(){
     //#region hooks
     const {id} = useParams();

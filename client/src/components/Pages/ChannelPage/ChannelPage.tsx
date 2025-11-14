@@ -3,21 +3,11 @@ import Footer from "../../Footer/Footer";
 import classes from './ChannelPage.module.css'
 import Nav from "../../Nav/Nav";
 import { useParams } from "react-router-dom";
-import type { Post } from "../Main/Main";
 import PostComponent from "../../Post/PostComponent";
 import PostCreateModal from "../../PostModal/PostCreateModal";
 import Admin from "../../Admin/Admin";
 import service from '../../../services/ChannelPage'
-
-export interface channel{
-    name:string,
-    description:string,
-    followers:string[],
-    adminList:string[],
-    isAdmin:boolean,
-    posts:Post[],
-    isFollowed:boolean
-}
+import type { channel } from "../../../interfaces/Channel";
 
 export default function ChannelPage(){
   //#region hooks

@@ -1,6 +1,6 @@
 import { PoolClient, QueryResult } from "pg";
-import { Post } from "../Services/Post";
 import Pfunctions from '../utils/Post.Functions'
+import { Post } from "../Interfaces/Post";
 export default class functions{
     static async getFollowers(client:PoolClient,channel_name:string):Promise<string[]> {
         const sql:string = `SELECT u.username FROM follows f

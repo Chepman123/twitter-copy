@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import MainService from "../Services/MainSevice";
-import { Post } from "../Services/Post";
+import { Post } from "../Interfaces/Post";
 
 export default class MainController{
     constructor(private service:MainService){}

@@ -1,18 +1,8 @@
 import { PoolClient, QueryResult } from "pg";
 import db from '../db'
 import functions from "../utils/Profile.Functions";
-import { Post } from "./Post";
+import channel from '../Interfaces/channel'
 import Cfunctions from '../utils/Channels.Functions'
-
-interface channel{
-    name:string,
-    description:string,
-    followers:string[],
-    adminList:string[],
-    isAdmin:boolean,
-    posts:Post[],
-    isFollowed:boolean
-}
 
 export default class ChannelsService{
     async CreateChannel(name:string,description:string){

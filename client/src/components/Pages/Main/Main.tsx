@@ -2,21 +2,10 @@ import classes from './Main.module.css'
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import PostComponent from '../../Post/PostComponent'
-import type{Comment} from '../../Comment/Comment'
 import Nav from "../../Nav/Nav"
 import Footer from "../../Footer/Footer"
 import service from '../../../services/Main'
-export interface Post{
-    id:number,
-    content:string,
-    created_by:string,
-    created_at:string,
-    created_byUser:boolean,
-    likes:string,
-    comments:Comment[],
-    isLiked:boolean,
-    channel:string
-}
+import type { Post } from '../../../interfaces/Post'
 
 
 export default function Main(){

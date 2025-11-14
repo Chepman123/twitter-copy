@@ -2,14 +2,8 @@ import { Link } from 'react-router-dom';
 import classes from './Comment.module.css'
 import { useEffect, useState, type ChangeEvent } from "react"
 import Options from '../Options/Options';
+import type { Comment } from '../../interfaces/Comment';
 
-export interface Comment{
-    id:string,
-    username:string,
-    content:string,
-    date:string,
-    createdByUser:boolean
-}
 export default function Comment({data}:{data:Comment}){
     const [content,setContent] = useState<string>(data.content)
     const [editMode,setEditMode] = useState<boolean>(false);

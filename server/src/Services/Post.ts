@@ -2,24 +2,8 @@ import functions from "../utils/Profile.Functions";
 import Pfunctions from "../utils/Post.Functions";
 import db from '../db'
 import { PoolClient, QueryResult } from "pg";
-export interface Comment{
-    id:string,
-    username:string,
-    content:string,
-    date:string,
-    createdByUser:boolean,
-    channel:string|null
-}
-export interface Post{
-    id:number,
-    content:string,
-    created_by:string,
-    created_at:string,
-    created_byUser:boolean,
-    likes:string,
-    comments:Comment[],
-    isLiked:boolean
-}
+import { Post } from "../Interfaces/Post";
+
 export default class PostService{
   //#region post
     async CreatePost(token:string,content:string,channelName:string){

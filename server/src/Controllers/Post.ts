@@ -1,4 +1,4 @@
-import { Post } from "../Services/Post";
+import { Post } from "../Interfaces/Post";
 import PostService from "../Services/Post";
 import { Request, Response, NextFunction } from "express";
 

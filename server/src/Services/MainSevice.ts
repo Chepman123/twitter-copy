@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { PoolClient, QueryResult } from "pg";
 import db from '../db'
 import functions from "../utils/Profile.Functions";
-import { Post } from "./Post";
+import { Post } from '../Interfaces/Post';
 
     dotenv.config();
     const secret:string=process.env.SECRET!;

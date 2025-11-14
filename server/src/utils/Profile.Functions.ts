@@ -1,7 +1,7 @@
 import { PoolClient, QueryResult } from "pg";
-import { Post } from "../Services/Post";
 import Pfunctions from "./Post.Functions";
 import jwt from 'jsonwebtoken'
+import { Post } from "../Interfaces/Post";
 export default class functions{
      static async isFollowed(client:PoolClient,follower:string,following:string):Promise<boolean>{
            const following_id:string = await this.getId(client,following);
