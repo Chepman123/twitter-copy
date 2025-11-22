@@ -1,4 +1,5 @@
-import type { Post } from "../components/Pages/Main/Main";
+import type { Post } from "../interfaces/Post";
+
 
 export default class{
     static async getPage(id:string):Promise<Post>{

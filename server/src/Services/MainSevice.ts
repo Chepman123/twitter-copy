@@ -24,15 +24,20 @@ export default class MainService{
 
           return result;   
     }
-    async GetProfile(token:string):Promise<string>{
+    async GetProfile(token:string):Promise<{profile:string,avatar:string}>{
         const client:PoolClient = await db.connect();
         
         const login:string = await functions.DecodeToken(token);
         
+        const sql:string = `SELECT avatar FROM users WHERE login = $1`;
+
+        const avatar:string = (await client.query(sql,[login])).rows[0].avatar;
+
         const username:string = await functions.getUsername(client,login);
+
         client.release();
 
-        return username;
+        return {profile:username,avatar:avatar};
     }
     async Explore(text:string):Promise<{username:string,type:string}[]>{
         const client = await db.connect();

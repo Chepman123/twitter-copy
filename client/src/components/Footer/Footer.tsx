@@ -4,9 +4,9 @@ import classes from './Footer.module.css'
 import { getProfile } from '../Nav/Nav';
 
 export default function Footer(){
-    const [users, setUsers] = useState<{username:string}[]>();
+    const [users, setUsers] = useState<{username:string,avatar:string}[]>();
     async function getFollowings() {
-        const response = await fetch(`http://localhost:5000/profile/${await getProfile()}/followings`);
+        const response = await fetch(`http://localhost:5000/profile/${(await getProfile()).profile}/followings`);
         setUsers(await response.json());
     }
     useEffect(()=>{getFollowings()},[])
@@ -15,7 +15,7 @@ export default function Footer(){
          <ul className={classes.ul}>
         {users?.map((user)=>{
             return <li className={classes.li}>
-                <User profile={user.username}/>
+                <User profile={user.username}avatar={user.avatar}/>
             </li>
         })}
     </ul>

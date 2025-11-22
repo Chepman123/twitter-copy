@@ -1,8 +1,8 @@
 import { useEffect, useState, type ChangeEvent, type CSSProperties } from "react";
-import type { Post } from "../Pages/Main/Main";
 import { Link } from "react-router-dom";
 import classes from './Post.module.css'
 import Options from "../Options/Options";
+import type { Post } from "../../interfaces/Post";
 
 //#region api
 const api = async(method:string,body:{})=>{
@@ -72,8 +72,9 @@ export default function PostComponent({data}:{data:Post}){
     return <div className={classes.div}>
     <Link to={`/post/${data.id}`}>
      <div className={classes.topDiv}>
+      
       <Link to={`/channels/${data.channel}`}>{data.channel}</Link>
-       <Link to={`/profile/${data.created_by}`}>{data.created_by}</Link>
+       <Link to={`/profile/${data.created_by}`}><img className={classes.avatar} src={data.avatar}/>{data.created_by}</Link>
        {data.created_byUser&&<Options editFunc={()=>{ setEditMode(!editMode)}}deleteFunc={DeletePost}/>}</div>
        {editMode&&
        <>
@@ -84,7 +85,7 @@ export default function PostComponent({data}:{data:Post}){
       {!editMode&&
        <p className={classes.p}>{editValue}</p>
       }
-      
+      <img className={classes.img} src={data.image}/>
        <section className={classes.info}>
         <div className={classes.likes}>
        <button onClick={(e)=>{  e.preventDefault(); 

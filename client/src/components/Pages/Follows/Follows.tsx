@@ -8,7 +8,7 @@ import service from '../../../services/Main'
 
 export default function Follow({following}:{following:boolean}){
     const {username} = useParams();
-    const [follows,setFollows] = useState<{username:string}[]>();
+    const [follows,setFollows] = useState<{username:string,avatar:string}[]>();
     async function getFollows(){
         setFollows(await service.getFollows(following,username!));
     }
@@ -18,7 +18,7 @@ export default function Follow({following}:{following:boolean}){
     <main className={classes.main}>
         <h1 className={classes.h1}>{following?`Followings`:'Followers'}</h1>
         {follows?.map((follow)=>{
-            return <User profile={follow.username}/>
+            return <User profile={follow.username} avatar={follow.avatar}/>
         })}
     </main>
     <Footer/>

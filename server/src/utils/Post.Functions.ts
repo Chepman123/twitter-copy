@@ -14,7 +14,7 @@ export default class functions{
        return result.rows[0].count;
     }
     static async GetComments(client:PoolClient,post_id:string,username:string):Promise<Comment[]>{
-       const sql:string = `SELECT c.id, u.username, c.content,c.created_at AS date FROM comments c
+       const sql:string = `SELECT c.id, u.username, c.content,c.created_at AS date,u.avatar FROM comments c
        JOIN users u ON u.id = c.user_id
        WHERE c.post_id = $1`;
        const result:QueryResult = await client.query(sql,[post_id]);

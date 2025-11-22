@@ -2,6 +2,7 @@ import type { Comment } from "./Comment";
 
 export interface Post{
     id:number,
+    image?:string,
     content:string,
     created_by:string,
     created_at:string,
@@ -9,5 +10,6 @@ export interface Post{
     likes:string,
     comments:Comment[],
     isLiked:boolean,
-    channel:string
+    channel:string,
+    avatar:string
 }

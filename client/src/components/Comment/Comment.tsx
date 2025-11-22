@@ -34,15 +34,17 @@ export default function Comment({data}:{data:Comment}){
 return (
   <div className={classes.div}>
     {!editMode && (
-      <>
+      <div className={classes.mainDiv}>
+      <img src={data?.avatar}/>
+      <div>
       <div className={classes.topDiv}>
         <Link to={`/profile/${data.username}`}>{data.username}</Link>
         {data.createdByUser &&
           <Options editFunc={() => setEditMode(true)}deleteFunc={Delete}/>
-        }</div>
+        }</div></div>
         <p className={classes.content}>{content}</p>
         <p className={classes.p}>{date}</p>
-      </>
+      </div>
     )}
 
     {editMode && (

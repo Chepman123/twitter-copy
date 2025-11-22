@@ -22,7 +22,11 @@ export default class ProfileController {
   }
   async ChangeProfile(req:Request,res:Response, next: NextFunction){
     try{
-        await this.service.changeProfile(req.body.login,req.body.description,req.body.icon);
+      const login = req.body.login;
+      const description = req.body.description;
+      const avatarFile = req.body.avatar; 
+      console.log(avatarFile);
+        await this.service.changeProfile(login,description,avatarFile);
         res.status(200);
     }
     catch(error){
@@ -40,7 +44,7 @@ export default class ProfileController {
   }
   async getFollowers(req:Request,res:Response, next: NextFunction){
     try{
-      const sql:string = `SELECT u.username FROM users u 
+      const sql:string = `SELECT u.username,u.avatar FROM users u 
        JOIN follows f ON f.follower_id = u.id
        WHERE following_id = $1`;
     const result = await this.service.GetFollows(req.params.username as string,sql); 
@@ -53,7 +57,7 @@ export default class ProfileController {
   }
   async getFollowings(req:Request,res:Response, next: NextFunction){
     try{
-      const sql:string=`SELECT u.username FROM users u 
+      const sql:string=`SELECT u.username,u.avatar FROM users u 
        JOIN follows f ON f.following_id = u.id
        WHERE follower_id = $1 AND following_id IS NOT NULL`;
     const result = await this.service.GetFollows(req.params.username as string,sql); 

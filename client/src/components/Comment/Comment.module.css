@@ -1,6 +1,7 @@
 .div{
     border-top: 1px solid rgb(224, 224, 224);
     padding-top: 30px;
+    padding-bottom: 30px;
 
     width: 100%;
     padding-left: 50px;
@@ -42,4 +43,14 @@
 }
 .topDiv div div{
     right: 225px;
+}
+.mainDiv{
+   display: flex;
+}
+.mainDiv img{
+    width: 20%;
+    border-radius: 70px;
+}
+.mainDiv>div{
+    width: 100%;
 }

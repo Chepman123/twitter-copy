@@ -38,14 +38,14 @@ let params: any[] = [];
 
 if (all) {
   sql = `
-    SELECT p.id, p.content,c.name AS channel, u.username AS created_by, p.created_at
+    SELECT p.id, p.content,c.name AS channel, u.username AS created_by, p.created_at,u.avatar,p.image
     FROM posts p
     LEFT JOIN channels c ON c.id = p.channel
     LEFT JOIN users u ON u.id = p.created_by
   `;
 } else {
   sql = `
-    SELECT p.id, p.content,c.name AS channel, u.username AS created_by, p.created_at
+    SELECT p.id, p.content,c.name AS channel, u.username AS created_by, p.created_at,u.avatar,p.image
     FROM posts p
     JOIN users u ON u.id = p.created_by
     LEFT JOIN channels c ON c.id = p.channel
@@ -55,7 +55,7 @@ if (all) {
 }
 
 const result = await client.query(sql, params);
-console.log(result);
+
       for(let i=0;i<result.rowCount!;i++){
         result.rows[i].created_byUser = username==result.rows[i].created_by;
         result.rows[i].likes = await Pfunctions.GetLikes(client,result.rows[i].id);

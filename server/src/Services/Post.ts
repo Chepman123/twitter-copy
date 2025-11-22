@@ -6,25 +6,26 @@ import { Post } from "../Interfaces/Post";
 
 export default class PostService{
   //#region post
-    async CreatePost(token:string,content:string,channelName:string){
+    async CreatePost(token:string,content:string,channelName:string,image?:string|null){
       const client:PoolClient = await db.connect();
         const login:string = await functions.DecodeToken(token);
         const username:string = await functions.getUsername(client,login);
         const id:string = await functions.getId(client,username);
 
         let sql:string = '';
-
+        if(!image)image=null
         if(channelName!=''){
           sql = `SELECT id FROM channels WHERE name = $1`;
           const result:QueryResult = await client.query(sql,[channelName]);
           const id = result.rows[0].id;
-          sql = `INSERT INTO posts(created_by,content,channel) VALUES($1,$2,${id})`;
+          sql = `INSERT INTO posts(created_by,content,channel,image) VALUES($1,$2,${id},$3)`;
+      
         }
         else{
-          sql = `INSERT INTO posts(created_by,content) VALUES($1,$2)`;
+          sql = `INSERT INTO posts(created_by,content,image) VALUES($1,$2,$3)`;
         }
       
-        await client.query(sql,[id,content]);
+        await client.query(sql,[id,content,image]);
       
         client.release();
     }
@@ -51,7 +52,7 @@ export default class PostService{
       const client:PoolClient = await db.connect();
       const login:string = await functions.DecodeToken(token);
       const username:string = await functions.getUsername(client,login);
-        const sql:string = `SELECT p.id,p.content,c.name AS channel,u.username AS created_by,p.created_at FROM posts p
+        const sql:string = `SELECT p.id,p.content,c.name AS channel,u.username AS created_by,p.created_at,u.avatar,p.image FROM posts p
       JOIN users u ON u.id = p.created_by
       LEFT JOIN channels c ON c.id = p.channel
       WHERE p.id = $1`;

@@ -20,8 +20,8 @@ export default class MainController{
 
          let token = authHeader.split(' ')[1];
          token = token.replace(/[^\w.-]/g, '');
-            const username:string = await this.service.GetProfile(token);
-        res.json(username);
+            const profile = await this.service.GetProfile(token);
+        res.json(profile);
     }
     catch(error){
         next(error);

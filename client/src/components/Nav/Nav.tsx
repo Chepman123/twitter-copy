@@ -4,7 +4,7 @@ import User from "../User/User";
 import classes from "./Nav.module.css";
 import NavButton from "./NavButton";
 
- export async function getProfile():Promise<string> {
+ export async function getProfile():Promise<{profile:string,avatar:string}> {
     const response = await fetch('http://localhost:5000',{
       method:'GET',
       headers:{'Content-Type': 'application/json','Authorization': `Bearer ${localStorage.getItem('token')}}`}
@@ -12,7 +12,7 @@ import NavButton from "./NavButton";
     return await response.json();
   }
 export default function Nav() {
-  const [profile,setProfile] = useState<string>('');
+  const [profile,setProfile] = useState<{profile:string,avatar:string}>();
  
   async function ChangeProfile() {
      setProfile(await getProfile())
@@ -42,7 +42,7 @@ export default function Nav() {
       </NavButton>
 
       <PostCreateModal />
-      <User profile={profile}/>
+      <User profile={profile?.profile!} avatar={profile?.avatar!}/>
     </nav>
   );
 }

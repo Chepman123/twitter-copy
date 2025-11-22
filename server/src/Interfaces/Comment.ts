@@ -4,5 +4,6 @@ export default interface Comment{
     content:string,
     date:string,
     createdByUser:boolean,
-    channel:string|null
+    channel:string|null,
+    avatar?:string
 }

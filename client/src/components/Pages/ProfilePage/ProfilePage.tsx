@@ -15,6 +15,7 @@ export default function ProfilePage(){
    //#region hooks
     const {username} = useParams();
     const [profile,setProfile] = useState<profile>(); 
+    const [avatar,setAvatar] = useState<File|null>(null);
     const [editMode,setEditMode]=useState<boolean>(false);
     function ChangeDescription(event:ChangeEvent<HTMLTextAreaElement>){
          if(!event.target.value) return;
@@ -29,7 +30,9 @@ export default function ProfilePage(){
     },[])
     //#endregion 
     async function getData(){
-      setProfile(await service.getData(username!));
+      const result = await service.getData(username!);
+
+      setProfile(result);
     }
     
     async function Follow() {
@@ -38,11 +41,12 @@ export default function ProfilePage(){
     }
     async function SubmitProfile(){
       setEditMode(false);
-      service.SubmitProfile(username!,profile?.description!)
+      
+      service.SubmitProfile(username!,profile?.description!,avatar!)
     }
     function fileHandler(event:ChangeEvent<HTMLInputElement>):void{
         if(event.target.files?.length){
-          //setImageEdit(event.target.files[0]);
+           setAvatar(event.target.files[0]);
         }
     }
     return<>

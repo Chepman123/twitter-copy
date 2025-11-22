@@ -23,13 +23,15 @@ export default class ProfileService{
     }
    //#endregion
     //#region change profile
-    async changeProfile(login:string,description:string,icon:string){
+    async changeProfile(login:string,description:string,avatar?:string){
+
+
         const client:PoolClient = await db.connect();
         const sql:string = ` UPDATE users
   SET description = $2,
       avatar = $3
   WHERE username = $1`;
-            await client.query(sql,[login,description,icon||null]);
+            await client.query(sql,[login,description,avatar]);
     
             client.release();
     }
@@ -55,10 +57,10 @@ export default class ProfileService{
         client.release();
     }
 
-    async GetFollows(username:string,sql:string):Promise<{username:string}[]>{
+    async GetFollows(username:string,sql:string):Promise<{username:string,avatar:string}[]>{
         const client:PoolClient = await db.connect();
        const id:string = await functions.getId(client,username);
-       const result:{username:string}[] = (await (client.query(sql,[id]))).rows;
+       const result:{username:string,avatar:string}[] = (await (client.query(sql,[id]))).rows;
 
        client.release();
 

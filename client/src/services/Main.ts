@@ -1,4 +1,5 @@
-import type { Post } from "../components/Pages/Main/Main";
+import type { Post } from "../interfaces/Post";
+
 
 export default class{
      static async Search(text:string):Promise<{username:string,type:string}[]> {
@@ -16,7 +17,7 @@ export default class{
         return [];
     }
     }
-    static async getFollows(following:boolean,username:string):Promise<{username:string}[]>{
+    static async getFollows(following:boolean,username:string):Promise<{username:string,avatar:string}[]>{
         let api:string = `http://localhost:5000/profile/${username}`;
         api += following?`/followings`:'/followers';
         try{
