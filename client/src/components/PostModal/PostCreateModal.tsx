@@ -48,8 +48,8 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
     }
 
     return (
-        <div>
-            <button onClick={showModal}>Create Post</button>
+        <div className={classes.main}>
+            <button onClick={showModal} className={classes.showModal}>Create Post</button>
 
             <Modal open={modal} onClick={() => setModal(false)}>
                 <div className={classes.textarea}>

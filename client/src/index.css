@@ -50,6 +50,7 @@ textarea{
     border: none;
     font-size: 150%;
     width: 80%;
+     resize: none;
 }
 textarea {
   border: none;

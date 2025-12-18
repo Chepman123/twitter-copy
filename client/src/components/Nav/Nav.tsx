@@ -20,6 +20,7 @@ export default function Nav() {
   useEffect(()=>{ChangeProfile()},[])
   return (
     <nav className={classes.nav}>
+      <div className={classes.buttons}>
       <NavButton
         path="/"
         icon="M3 11.5L12 4l9 7.5M5 20.5V11h14v9.5"
@@ -40,8 +41,9 @@ export default function Nav() {
       >
         Channels
       </NavButton>
-
+      </div>
       <PostCreateModal />
+      <div className={classes.border}/>
       <User profile={profile?.profile!} avatar={profile?.avatar!}/>
     </nav>
   );
