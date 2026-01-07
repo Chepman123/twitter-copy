@@ -1,0 +1,64 @@
+.div{
+    border-top: 1px solid rgb(224, 224, 224);
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    width: 100%;
+    padding-left: 50px;
+    font-size: 120%;
+
+    textarea
+    {
+    width: 80%;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    }
+
+    a
+    {
+    font-weight: bold; 
+    color: black;
+    text-decoration: none;
+    }
+}
+.button{
+    width: 15%;
+}
+.content{
+    width: 90%;
+}
+.p{
+    justify-self: flex-end;
+    margin-bottom: 10px;
+    padding-right: 50px;
+    font-size: 70%;
+    color: rgb(61, 61, 61);
+}
+.topDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div
+    {
+    font-size: 75%;
+    margin-right: 30px;
+
+    div
+    {
+    right: 225px;
+    }
+    }
+}
+.mainDiv{
+   display: flex;
+   img
+   {
+    width: 20%;
+    border-radius: 70px;
+    }
+}
+.mainDiv>div{
+    width: 100%;
+}

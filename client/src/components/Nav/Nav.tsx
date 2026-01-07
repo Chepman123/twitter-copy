@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostCreateModal from "../PostModal/PostCreateModal";
 import User from "../User/User";
-import classes from "./Nav.module.css";
+import classes from "./Nav.module.scss";
 import NavButton from "./NavButton";
 
  export async function getProfile():Promise<{profile:string,avatar:string}> {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import classes from './Follows.module.css'
+import classes from './Follows.module.scss'
 import Nav from "../../Nav/Nav";
 import Footer from "../../Footer/Footer";
 import User from "../../User/User";

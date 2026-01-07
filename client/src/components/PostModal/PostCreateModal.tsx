@@ -53,9 +53,6 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
 
             <Modal open={modal} onClick={() => setModal(false)}>
                 <div className={classes.textarea}>
-                    <input type="file" onChange={(e) => {
-                        if (e.target.files?.length) setFile(e.target.files[0]);
-                    }} />
                     <textarea
                         className={classes.input}
                         onChange={changeContent}

@@ -1,10 +1,11 @@
 import { useState} from "react";
 import Footer from "../../Footer/Footer";
 import Nav from "../../Nav/Nav";
-import classes from './Explore.module.css'
-import User from "../../User/User";
+import classes from './Explore.module.scss'
+
 import Channel from "../../Channel/Channel";
 import service from '../../../services/Main'
+import User from "../../User/User";
 
 export default function Explore(){
     const[text,SetText] = useState<string>('');
@@ -22,7 +23,7 @@ export default function Explore(){
         </div>
        {users.map((user) => (
   user.type === "user"
-    ? <User key={user.username} profile={user.username} />
+    ? <User key={user.username} profile={user.username} avatar=""/>
     : user.type === "channel"
       ? <Channel key={user.username} name={user.username} />
       : null

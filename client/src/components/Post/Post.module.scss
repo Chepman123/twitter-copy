@@ -1,0 +1,81 @@
+.div{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 40px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    margin-bottom: 20px;
+    transition: all ease-in-out 0.2s;
+
+    textarea
+    {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid black;
+    }
+    
+    a
+    {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    }
+}
+.avatar{
+    width: 20%;
+    border-radius: 50px;
+}
+.div:hover{
+    background-color: rgb(241, 241, 241);
+
+    .like
+    {
+    background-color: rgb(241, 241, 241);
+    }
+}
+.button{
+    width: 15%;
+}
+.p{
+    font-size: 150%;
+}
+.like{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    font-size: 200%;
+}
+.like:hover{
+    box-shadow: none;
+    transform: translateY(0);
+    scale: 1.1;
+}
+.info{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.likes{
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+
+    h4
+    {
+    z-index: 1;
+    margin-left: 10px;
+    }
+}
+.topDiv{
+    display: flex;
+}
+.img{
+    width: 80%;
+}

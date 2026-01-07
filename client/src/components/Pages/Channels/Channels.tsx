@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import Footer from "../../Footer/Footer";
 import Nav from "../../Nav/Nav";
-import classes from './Channels.module.css'
+import classes from './Channels.module.scss'
 import Channel from "../../Channel/Channel";
 import service from '../../../services/ChannelPage'
 export default function Channels(){

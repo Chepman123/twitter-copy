@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import userIcon from '../../../../public/userIcon.png'
 import PostComponent from '../../Post/PostComponent';
 import service from '../../../services/ProfilePage';
-import classes from './ProfilePage.module.css'
+import classes from './ProfilePage.module.scss'
 import Nav from "../../Nav/Nav";
 import Footer from "../../Footer/Footer";
 import banner from '../../../../public/1.jpg'

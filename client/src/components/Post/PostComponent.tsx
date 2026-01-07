@@ -1,6 +1,6 @@
 import { useEffect, useState, type ChangeEvent, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import classes from './Post.module.css'
+import classes from './Post.module.scss'
 import Options from "../Options/Options";
 import type { Post } from "../../interfaces/Post";
 

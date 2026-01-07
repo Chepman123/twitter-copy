@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../../public/logo.png';
-import classes from './LoginReg.module.css'
+import classes from './LoginReg.module.scss'
 import {useState} from 'react';
 import service, { type loginStatus } from '../../../services/RegLog';
 

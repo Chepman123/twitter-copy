@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import classes from './User.module.css'
+import classes from './User.module.scss'
 import icon from '../../../public/userIcon.png'
 
 export default function User({profile,avatar}:{profile:string,avatar:string}){

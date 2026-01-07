@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import classes from './Comment.module.css'
+import classes from './Comment.module.scss'
 import { useEffect, useState, type ChangeEvent } from "react"
 import Options from '../Options/Options';
 import type { Comment } from '../../interfaces/Comment';
