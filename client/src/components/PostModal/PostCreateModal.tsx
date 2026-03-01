@@ -45,6 +45,11 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
         }
 
         send(null);
+         setModal(false);
+
+       
+        setContent('');
+        setFile(null);
     }
 
     return (
@@ -60,7 +65,15 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
                         placeholder="What's happening?"
                     />
                 </div>
-
+                <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => {
+        if (e.target.files && e.target.files[0]) {
+            setFile(e.target.files[0]);
+        }
+    }}
+/>
                 <div className={classes.div}>
                     <button className={classes.button} onClick={createPost}>Post</button>
                 </div>

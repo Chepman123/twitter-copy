@@ -21,6 +21,7 @@ export default function Explore(){
         <input type="text" placeholder="search..." value={text} onChange={(e)=>SetText(e.target.value)}/>
         <button className={classes.button} onClick={Search}>Search</button>
         </div>
+        <div className={classes.result}>
        {users.map((user) => (
   user.type === "user"
     ? <User key={user.username} profile={user.username} avatar=""/>
@@ -28,7 +29,7 @@ export default function Explore(){
       ? <Channel key={user.username} name={user.username} />
       : null
         ))}
-
+       </div>
 
     </main>
     <Footer/>

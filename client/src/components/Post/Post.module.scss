@@ -26,8 +26,8 @@
     }
 }
 .avatar{
-    width: 20%;
-    border-radius: 50px;
+    width: 15%;
+    border-radius: 75px;
 }
 .div:hover{
     background-color: rgb(241, 241, 241);
@@ -75,6 +75,10 @@
 }
 .topDiv{
     display: flex;
+    justify-content: space-around;
+    a{
+        font-size: 200%;
+    }
 }
 .img{
     width: 80%;

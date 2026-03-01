@@ -42,6 +42,7 @@ if (all) {
     FROM posts p
     LEFT JOIN channels c ON c.id = p.channel
     LEFT JOIN users u ON u.id = p.created_by
+    ORDER BY p.created_at DESC
   `;
 } else {
   sql = `
@@ -50,6 +51,7 @@ if (all) {
     JOIN users u ON u.id = p.created_by
     LEFT JOIN channels c ON c.id = p.channel
     WHERE u.username = $1 AND p.channel IS NULL
+    ORDER BY p.created_at DESC
   `;
   params = [username];
 }

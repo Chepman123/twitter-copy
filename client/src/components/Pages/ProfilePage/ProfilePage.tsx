@@ -73,11 +73,12 @@ export default function ProfilePage(){
         </button>
         </>
       )}
+      <div className={classes.follow}>
       {!profile?.userAccount &&
          <button type="button" onClick={Follow}>
           {profile?.isFollowed?'Unfollow':'Follow'}
         </button>
-      }
+      }</div>
     </>
   )
 }
