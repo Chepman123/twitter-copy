@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react";
 import Footer from "../../Footer/Footer";
-import classes from './ChannelPage.module.css'
+import classes from './ChannelPage.module.scss'
 import Nav from "../../Nav/Nav";
 import { useParams } from "react-router-dom";
 import PostComponent from "../../Post/PostComponent";
@@ -68,15 +68,20 @@ export default function ChannelPage(){
         {!editMode&&
         <>
         <p>{desc}</p>
+         <h2>followers: {data?.followers.length}</h2>
+         <button onClick={Follow}>{data?.isFollowed?'unfollow':'follow'}</button>
+         </>}
+        
         {data?.isAdmin&&
         <>
+        
         <button onClick={()=>{setMode(true)}}>Edit</button>
-        <PostCreateModal channelName={data.name}/></>
+         <div className={classes.border}/>
+        <PostCreateModal channelName={data.name}/>
+        
+        </>
         }
-        <h2>followers: {data?.followers.length}</h2>
-         <button onClick={Follow}>{data?.isFollowed?'unfollow':'follow'}</button>
-
-         </>}
+       
        
 
         {data?.posts.map((post)=>{

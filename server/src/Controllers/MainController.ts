@@ -6,7 +6,7 @@ export default class MainController{
     constructor(private service:MainService){}
     async GetInfo(req:Request,res:Response, next: NextFunction){
     try{
-            const info:Post[] = await this.service.GetInfo(req.body.token);
+            const info:Post[] = await this.service.GetInfo(req.body.token,req.body.page);
         res.json(info);
     }
     catch(error){

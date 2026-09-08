@@ -32,7 +32,7 @@ export default class functions{
         const sql:string = `SELECT * FROM follows WHERE follower_id=$1 AND following_id=$2`
         return (await client.query(sql,[follower_id,following_id])).rowCount!=0; 
     }
-    static async getPosts(client:PoolClient,all:boolean,username:string):Promise<Post[]>{
+    static async getPosts(client:PoolClient,all:boolean,username:string,page:number):Promise<Post[]>{
         let sql: string;
 let params: any[] = [];
 
@@ -43,6 +43,8 @@ if (all) {
     LEFT JOIN channels c ON c.id = p.channel
     LEFT JOIN users u ON u.id = p.created_by
     ORDER BY p.created_at DESC
+    LIMIT 3
+    OFFSET 3*(${page}-1)
   `;
 } else {
   sql = `

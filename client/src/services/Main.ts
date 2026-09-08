@@ -2,7 +2,7 @@ import type { Post } from "../interfaces/Post";
 
 
 export default class{
-     static async Search(text:string):Promise<{username:string,type:string}[]> {
+     static async Search(text:string):Promise<{username:string,type:string,avatar:string}[]> {
         try{
         const response = await fetch('http://localhost:5000/explore',{
             method:'POST',
@@ -32,12 +32,12 @@ export default class{
             return []
         }
     }
-    static async getProfile():Promise<Post[]>{
+    static async getProfile(currentPage:number):Promise<Post[]>{
         try{
-       const response:Response = await fetch('http://localhost:5000',{
+       const response:Response = await fetch(`http://localhost:5000`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({token:localStorage.getItem('token')})
+        body:JSON.stringify({token:localStorage.getItem('token'),page:currentPage})
        })
        if(!response.ok) throw new Error('server problem')
        return await response.json();

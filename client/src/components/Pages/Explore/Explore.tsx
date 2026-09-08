@@ -9,7 +9,7 @@ import User from "../../User/User";
 
 export default function Explore(){
     const[text,SetText] = useState<string>('');
-    const[users,setUsers] = useState<{username:string,type:string}[]>([]);
+    const[users,setUsers] = useState<{username:string,type:string,avatar:string}[]>([]);
 
     async function Search() {
         setUsers(await service.Search(text));
@@ -24,7 +24,7 @@ export default function Explore(){
         <div className={classes.result}>
        {users.map((user) => (
   user.type === "user"
-    ? <User key={user.username} profile={user.username} avatar=""/>
+    ? <User key={user.username} profile={user.username} avatar={user.avatar}/>
     : user.type === "channel"
       ? <Channel key={user.username} name={user.username} />
       : null

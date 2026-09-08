@@ -8,7 +8,7 @@ import { Post } from '../Interfaces/Post';
     const secret:string=process.env.SECRET!;
 
 export default class MainService{
-    async GetInfo(token:string):Promise<Post[]>
+    async GetInfo(token:string,page:number):Promise<Post[]>
     {
         const client:PoolClient = await db.connect();
 
@@ -18,7 +18,7 @@ export default class MainService{
 
           const username:string = (await client.query(sql,[login])).rows[0].username;
 
-          const result:Post[] = await functions.getPosts(client,true,username);
+          const result:Post[] = await functions.getPosts(client,true,username,page);
 
           client.release();
 
@@ -39,12 +39,12 @@ export default class MainService{
 
         return {profile:username,avatar:avatar};
     }
-    async Explore(text:string):Promise<{username:string,type:string}[]>{
+    async Explore(text:string):Promise<{username:string,type:string,avatar:string}[]>{
         const client = await db.connect();
-        const sql = `(SELECT username,'user' AS type FROM users
+        const sql = `(SELECT username,'user' AS type, avatar FROM users
         WHERE username LIKE '%' || $1 || '%')
         UNION
-        (SELECT name,'channel' AS type FROM channels
+        (SELECT name,'channel' AS type, NULL AS avatar FROM channels
         WHERE name LIKE '%'||$1||'%')`;
         const result: QueryResult = await client.query(sql, [text]);
 

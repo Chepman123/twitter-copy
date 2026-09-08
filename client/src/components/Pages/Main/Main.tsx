@@ -11,16 +11,27 @@ import type { Post } from '../../../interfaces/Post'
 export default function Main(){
   //#region hooks
     const navigator = useNavigate();
-    const [info,setInfo]=useState<Post[]>();
+    const [info,setInfo]=useState<Post[]>([]);
+    const[currentPage,setPage]=useState<number>(1);
     useEffect(()=>{
         if(!localStorage.getItem('token'))navigator('/login');
-
-        getProfile();
+         document.addEventListener("scroll",ScrollHandler);
+        return ()=>document.removeEventListener("scroll",ScrollHandler);
     },[])
+    function ScrollHandler(){
+ if (
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 200
+  ) {
+    setPage(prev => prev + 1);
+  }
+    }
     //#endregion
     async function getProfile(){
-       setInfo(await service.getProfile());
+      const result = await service.getProfile(currentPage);
+      setInfo(prev => [...prev, ...(result ?? [])]);
     }
+    useEffect(()=>{getProfile()},[currentPage])
     
     return <div className="page">
   <Nav/>
