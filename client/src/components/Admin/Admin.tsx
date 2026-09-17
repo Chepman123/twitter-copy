@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-
+import classes from './Admin.module.scss';
 export default function Admin({username}:{username:string}){
     const {name} = useParams();
     function Delete(){
@@ -9,7 +9,6 @@ export default function Admin({username}:{username:string}){
         body:JSON.stringify({admin:username})
        });
     }
-    return <div><h2>{username}</h2>
-    <button onClick={Delete}>X</button>
+    return <div className={classes.div} onClick={Delete}><h2>X {username}</h2>
     </div>
 }

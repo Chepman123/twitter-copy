@@ -2,6 +2,7 @@ import { Request, Response, Router, NextFunction  } from "express"
 import ProfileController from "../Controllers/Profile";
 import ProfileService from "../Services/Profile";
 import multer from "multer";
+import UserProfile from "../MiddleWares/UsersProfile";
 
 export default ()=>{
   const upload = multer({ storage: multer.memoryStorage() });
@@ -10,7 +11,7 @@ export default ()=>{
   const controller:ProfileController = new ProfileController(service);
   router.get('/',(req:Request,res:Response,next:NextFunction)=>{controller.GetProfile(req,res,next)});
   
-  router.put('/', (req, res, next) => {
+  router.put('/',UserProfile, (req, res, next) => {
   controller.ChangeProfile(req, res, next);
 });
   router.post('/',(req:Request,res:Response,next:NextFunction)=>{controller.Follow(req,res,next)});

@@ -9,6 +9,7 @@ export default class ChannelsService{
         const client:PoolClient = await db.connect();
         let sql:string = `SELECT * FROM channels WHERE name = $1`;
 
+
         if((await client.query(sql,[name])).rowCount!=0) return;
 
 
@@ -77,10 +78,10 @@ export default class ChannelsService{
     async DeleteAdmin(channel_name:string,admin:string){
         const client:PoolClient = await db.connect();
 
-        const sql:string = `DELETE FROM channel_admins ca
-        JOIN users u ON u.id = ca.admin_id
-        JOIN channels c ON c.id = ca.channel_id
-        WHERE c.name = $1 AND u.username = $2`;
+        const sql:string = `DELETE FROM channel_admins ca USING users u, channels c WHERE u.id = ca.admin_id
+  AND c.id = ca.channel_id
+  AND c.name = $1
+  AND u.username = $2`;
 
         client.query(sql,[channel_name,admin]);
     }

@@ -48,7 +48,8 @@ export default class{
           login:username,
           description:description,
           avatar:reader.result
-        })
+        }),
+        credentials:'include'
       })
       if(!response.ok) throw new Error('server problem');
       }

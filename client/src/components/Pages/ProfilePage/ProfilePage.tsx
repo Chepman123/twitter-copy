@@ -88,7 +88,10 @@ export default function ProfilePage(){
       {profile?.userAccount && (
         <>
         <textarea placeholder="description" onChange={ChangeDescription} value={profile?.description}/><br/>
-        <input type="file" onChange={fileHandler} /><br/>
+        <label className={classes.label} htmlFor="avatar">📎</label>
+        <input id="avatar" type="file" onChange={fileHandler} style={{display:'none'}}/><br/>
+        {avatar&&
+        <img src={URL.createObjectURL(avatar)} style={{maxWidth:'100px'}}/>}
         <button type="button" onClick={SubmitProfile}>
           Submit
         </button></>

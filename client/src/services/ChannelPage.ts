@@ -56,7 +56,7 @@ export default class{
         console.error(error);
     }
    }
-    static async Create(desc:string):Promise<void> {
+    static async Create(desc:string,name:string):Promise<void> {
         await fetch('http://localhost:5000/channels',{
             method:'POST',
             headers:{'Content-Type':'application/json'},

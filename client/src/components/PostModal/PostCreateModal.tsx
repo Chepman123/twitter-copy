@@ -65,7 +65,9 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
                         placeholder="What's happening?"
                     />
                 </div>
-                <input
+                <label className={classes.label} htmlFor="photo">📎</label>
+                <input id="photo"
+                style={{display:'none'}}
     type="file"
     accept="image/*"
     onChange={(e) => {
@@ -73,7 +75,10 @@ export default function PostCreateModal({ channelName }: { channelName?: string 
             setFile(e.target.files[0]);
         }
     }}
-/>
+/>                
+              {file&&
+               <img className={classes.img}src={URL.createObjectURL(file!)}/>
+              }
                 <div className={classes.div}>
                     <button className={classes.button} onClick={createPost}>Post</button>
                 </div>

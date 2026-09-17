@@ -16,7 +16,7 @@ export default function Channels(){
         setDesc(event.target.value);
     }
     async function Create() {
-        service.Create(desc);
+        service.Create(desc,name);
     }
     async function GetChannels() {
         const result = await service.GetChannels();

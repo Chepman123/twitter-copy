@@ -54,9 +54,11 @@ export default function ChannelPage(){
         <textarea placeholder="description" onChange={(e)=>setDesc(e.target.value)} value={desc}/>
         <button onClick={()=>{setMode(false);Submit()}}>Submit</button>
         <h2>Admins</h2>
+        <div style={{display:'flex',flexWrap:'wrap',overflowX:'auto'}}>
         {data?.adminList.map((admin)=>{
           return <Admin username={admin}/>
         })}
+        </div>
         <select value={admin} onChange={(e) => setAdmin(e.target.value)}>
           {data?.followers.map((follower)=>{
             return <option value={follower}>{follower}</option>
@@ -81,9 +83,6 @@ export default function ChannelPage(){
         
         </>
         }
-       
-       
-
         {data?.posts.map((post)=>{
             return <PostComponent data={post}/>
         })}
